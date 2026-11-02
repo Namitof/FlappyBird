@@ -10,6 +10,7 @@ namespace ReyesCuadra
     {
         ParallaxLayer farLayer; // Capa mas lejana: edificios claros que se mueven lento
         ParallaxLayer midLayer; // Capa del medio: edificios mas bajos y oscuros que se mueven mas rapido
+        ParallaxLayer nearLayer; // Capa mas cercana: casas bajas y oscuras que se mueven mas rapido que todas
     };
 
     // Crea el fondo con todas sus capas en su posicion inicial

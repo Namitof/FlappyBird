@@ -17,15 +17,23 @@ namespace ReyesCuadra
     static const float MID_LAYER_SPEED = 70.0f;
     static const Color MID_LAYER_COLOR = { 120, 170, 195, 255 };
 
+    // Capa mas cercana: casas bajas y oscuras, que se mueven mas rapido que todas porque son las que estan mas cerca.
+    // Son bajas para no tapar la zona por donde vuela el jugador
+    static const float NEAR_LAYER_BLOCK_HEIGHTS[] = { 45.0f, 60.0f, 35.0f, 55.0f, 40.0f, 65.0f, 50.0f, 38.0f, 58.0f, 42.0f, 52.0f, 36.0f };
+    static const float NEAR_LAYER_SPEED = 150.0f;
+    static const Color NEAR_LAYER_COLOR = { 80, 125, 150, 255 };
+
     Background CreateBackground(int screenWidth)
     {
         Background background;
 
         const int farLayerBlockCount = static_cast<int>(std::size(FAR_LAYER_BLOCK_HEIGHTS));
         const int midLayerBlockCount = static_cast<int>(std::size(MID_LAYER_BLOCK_HEIGHTS));
+        const int nearLayerBlockCount = static_cast<int>(std::size(NEAR_LAYER_BLOCK_HEIGHTS));
 
         background.farLayer = CreateParallaxLayer(FAR_LAYER_BLOCK_HEIGHTS, farLayerBlockCount, FAR_LAYER_SPEED, FAR_LAYER_COLOR, screenWidth);
         background.midLayer = CreateParallaxLayer(MID_LAYER_BLOCK_HEIGHTS, midLayerBlockCount, MID_LAYER_SPEED, MID_LAYER_COLOR, screenWidth);
+        background.nearLayer = CreateParallaxLayer(NEAR_LAYER_BLOCK_HEIGHTS, nearLayerBlockCount, NEAR_LAYER_SPEED, NEAR_LAYER_COLOR, screenWidth);
 
         return background;
     }
@@ -34,6 +42,7 @@ namespace ReyesCuadra
     {
         UpdateParallaxLayer(background.farLayer, deltaTime);
         UpdateParallaxLayer(background.midLayer, deltaTime);
+        UpdateParallaxLayer(background.nearLayer, deltaTime);
     }
 
     void DrawBackground(const Background& background, int screenHeight)
@@ -41,5 +50,6 @@ namespace ReyesCuadra
         // Cada capa se dibuja encima de la anterior, asi la mas cercana queda adelante
         DrawParallaxLayer(background.farLayer, screenHeight);
         DrawParallaxLayer(background.midLayer, screenHeight);
+        DrawParallaxLayer(background.nearLayer, screenHeight);
     }
 }

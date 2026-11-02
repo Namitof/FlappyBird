@@ -15,7 +15,7 @@ namespace ReyesCuadra
         bool isSectionTitle;
     };
 
-    // Tecla para volver al menu (la misma que en el gameplay, para que sea consistente)
+    // Tecla para volver al menu (la misma que en el gameplay)
     static const KeyboardKey BACK_TO_MENU_KEY = KEY_ESCAPE;
 
     // Textos que ve el usuario
