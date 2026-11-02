@@ -98,6 +98,8 @@
     <ClCompile Include="src\scenes\credits.cpp" />
     <ClCompile Include="src\ui\button.cpp" />
     <ClCompile Include="src\ui\text.cpp" />
+    <ClCompile Include="src\background\parallax_layer.cpp" />
+    <ClCompile Include="src\background\background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h" />
@@ -109,6 +111,8 @@
     <ClInclude Include="src\scenes\credits.h" />
     <ClInclude Include="src\ui\button.h" />
     <ClInclude Include="src\ui\text.h" />
+    <ClInclude Include="src\background\parallax_layer.h" />
+    <ClInclude Include="src\background\background.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

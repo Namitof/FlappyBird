@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 
+#include "background/background.h"
 #include "entities/player.h"
 #include "entities/obstacle.h"
 #include "ui/text.h"
@@ -48,6 +49,7 @@ namespace ReyesCuadra
     // Todo lo que la partida necesita mientras se juega
     struct GameplayState
     {
+        Background background;
         Player player;
         Obstacle obstacle;
         RunState runState;
@@ -57,7 +59,7 @@ namespace ReyesCuadra
     // Estado de la partida actual (solo se usa en este archivo)
     static GameplayState gameplay;
 
-    // Mueve al jugador y al obstaculo y chequea las condiciones de derrota
+    // Mueve el fondo, al jugador y al obstaculo y chequea las condiciones de derrota
     static void UpdatePlaying(float deltaTime);
 
     // Termina la partida guardando el motivo, para mostrarlo en el mensaje de derrota
@@ -80,6 +82,7 @@ namespace ReyesCuadra
         const int screenWidth = GetScreenWidth();
         const int screenHeight = GetScreenHeight();
 
+        gameplay.background = CreateBackground(screenWidth);
         gameplay.player = CreatePlayer(screenHeight);
         gameplay.obstacle = CreateObstacle(screenWidth, screenHeight);
         gameplay.runState = RunState::Playing;
@@ -112,6 +115,9 @@ namespace ReyesCuadra
     {
         ClearBackground(GAMEPLAY_BACKGROUND_COLOR);
 
+        // El fondo va primero para que todo lo demas se dibuje encima
+        DrawBackground(gameplay.background, GetScreenHeight());
+
         // Los elementos se siguen dibujando despues de perder, para que el jugador vea como fue el choque
         DrawObstacle(gameplay.obstacle);
         DrawPlayer(gameplay.player);
@@ -126,6 +132,8 @@ namespace ReyesCuadra
 
     static void UpdatePlaying(float deltaTime)
     {
+        // El fondo solo se mueve mientras se juega, igual que el obstaculo
+        UpdateBackground(gameplay.background, deltaTime);
         UpdatePlayer(gameplay.player, deltaTime);
         UpdateObstacle(gameplay.obstacle, GetScreenWidth(), GetScreenHeight(), deltaTime);
 

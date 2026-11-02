@@ -13,6 +13,9 @@
     <Filter Include="ui">
       <UniqueIdentifier>{8ECDF213-1849-4657-B67E-C6E1AE692ADF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="background">
+      <UniqueIdentifier>{044C06AC-A064-40BA-8221-3A60D36E3342}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -39,6 +42,12 @@
     </ClCompile>
     <ClCompile Include="src\ui\text.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\background\parallax_layer.cpp">
+      <Filter>background</Filter>
+    </ClCompile>
+    <ClCompile Include="src\background\background.cpp">
+      <Filter>background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="src\ui\text.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\background\parallax_layer.h">
+      <Filter>background</Filter>
+    </ClInclude>
+    <ClInclude Include="src\background\background.h">
+      <Filter>background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
