@@ -9,6 +9,7 @@ namespace ReyesCuadra
     struct Background
     {
         ParallaxLayer farLayer; // Capa mas lejana: edificios claros que se mueven lento
+        ParallaxLayer midLayer; // Capa del medio: edificios mas bajos y oscuros que se mueven mas rapido
     };
 
     // Crea el fondo con todas sus capas en su posicion inicial
