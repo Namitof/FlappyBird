@@ -15,7 +15,7 @@ namespace ReyesCuadra
     static const char* EXIT_BUTTON_TEXT = "Salir";
 
     // Version del juego, que ahora se muestra en un borde del menu
-    static const char* GAME_VERSION_TEXT = "v0.2";
+    static const char* GAME_VERSION_TEXT = "v0.3";
 
     // Distribucion de los elementos en la pantalla
     static const int TITLE_POSITION_Y = 60;
