@@ -5,18 +5,20 @@ Práctica Profesional I: Desarrollo de Videojuegos I (Image Campus, 2026).
 
 El proyecto se desarrolla de forma iterativa: cada versión agrega funcionalidades nuevas.
 
-## Versión actual: 0.2
+## Versión actual: 0.3
 
-- El juego arranca en un menú con las opciones **Jugar**, **Créditos** y **Salir**; la versión se ve en una esquina del menú.
+- El juego arranca en un menú con las opciones **Jugar**, **Créditos** y **Salir**; el menú también muestra los controles y la versión en una esquina.
 - El jugador controla un cuadrado amarillo en el lado izquierdo de la pantalla: la gravedad lo hace caer y con ESPACIO salta.
 - Un obstáculo verde de dos partes (arriba y abajo, con un hueco en el medio) aparece por la derecha y avanza hacia la izquierda; al salir de la pantalla vuelve a aparecer por la derecha con el hueco a otra altura.
 - Se pierde al chocar con el obstáculo o al caer al piso. El techo frena al jugador.
+- El gameplay tiene un fondo con efecto parallax de 3 capas de edificios que se mueven a distintas velocidades.
+- La pantalla de créditos tiene un botón **Volver** para regresar al menú.
 
 ## Controles
 
 | Tecla | Acción |
 | --- | --- |
-| Clic izquierdo | Elegir una opción del menú |
+| Clic izquierdo | Elegir una opción del menú o volver desde los créditos |
 | ESPACIO | Saltar |
 | R | Reiniciar después de perder |
 | ESC | Volver al menú desde el gameplay o los créditos |
