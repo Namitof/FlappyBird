@@ -1,5 +1,4 @@
-#ifndef CREDITS_H
-#define CREDITS_H
+#pragma once
 
 #include "scenes/scene.h"
 
@@ -11,5 +10,3 @@ namespace ReyesCuadra
     // Dibuja los creditos del juego
     void DrawCredits();
 }
-
-#endif // CREDITS_H
