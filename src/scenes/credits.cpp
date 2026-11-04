@@ -4,6 +4,7 @@
 
 #include "raylib.h"
 
+#include "ui/button.h"
 #include "ui/text.h"
 
 namespace ReyesCuadra
@@ -20,7 +21,8 @@ namespace ReyesCuadra
 
     // Textos que ve el usuario
     static const char* CREDITS_TITLE_TEXT = "CREDITOS";
-    static const char* BACK_TO_MENU_TEXT = "ESC para volver al menu";
+    static const char* BACK_BUTTON_TEXT = "Volver";
+    static const char* BACK_TO_MENU_TEXT = "Tambien podes volver con ESC";
 
     // Contenido de los creditos, en el orden en que se muestran
     static const CreditLine CREDIT_LINES[] =
@@ -40,6 +42,7 @@ namespace ReyesCuadra
     static const int LINE_SPACING = 27;           // Distancia vertical entre una linea y la siguiente
     static const int SECTION_EXTRA_SPACING = 15;  // Espacio extra antes de cada titulo de seccion, para separarlas
     static const int BOTTOM_MARGIN = 30;
+    static const float BACK_BUTTON_POSITION_Y = 320.0f; // Debajo de las lineas de los creditos
 
     // Colores
     static const Color CREDITS_BACKGROUND_COLOR = SKYBLUE;
@@ -47,12 +50,21 @@ namespace ReyesCuadra
     static const Color SECTION_TITLE_COLOR = DARKBLUE;
     static const Color TEXT_COLOR = DARKGRAY;
 
+    // Boton para volver al menu, igual a los del menu principal (solo se usa en este archivo)
+    static Button backButton;
+
     // Dibuja todas las lineas de los creditos, una debajo de la otra
     static void DrawCreditLines();
 
+    void InitCredits()
+    {
+        backButton = CreateCenteredButton(BACK_BUTTON_TEXT, BACK_BUTTON_POSITION_Y);
+    }
+
     Scene UpdateCredits()
     {
-        if (IsKeyPressed(BACK_TO_MENU_KEY))
+        // Se vuelve al menu con el boton, igual que se navega en el menu, o con ESC, igual que en el gameplay
+        if (IsButtonClicked(backButton) || IsKeyPressed(BACK_TO_MENU_KEY))
         {
             return Scene::MainMenu;
         }
@@ -68,7 +80,9 @@ namespace ReyesCuadra
 
         DrawCreditLines();
 
-        // La indicacion para volver va abajo de todo, para que el usuario sepa como salir de la pantalla
+        DrawButton(backButton);
+
+        // Abajo de todo se recuerda que tambien se puede volver con el teclado
         const int backTextPositionY = GetScreenHeight() - BOTTOM_MARGIN;
 
         DrawCenteredText(BACK_TO_MENU_TEXT, backTextPositionY, LINE_FONT_SIZE, TEXT_COLOR);

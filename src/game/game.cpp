@@ -18,7 +18,7 @@ namespace ReyesCuadra
     // Escena con la que arranca el juego
     static const Scene FIRST_SCENE = Scene::MainMenu;
 
-    // Abre la ventana y prepara las escenas
+    // Abre la ventana y prepara las escenas que tienen botones
     static void InitGame();
 
     // Actualiza la escena actual y devuelve la escena en la que tiene que estar el juego el proximo frame
@@ -58,6 +58,7 @@ namespace ReyesCuadra
         SetExitKey(KEY_NULL);
 
         InitMainMenu();
+        InitCredits();
     }
 
     static Scene UpdateCurrentScene(Scene currentScene)
