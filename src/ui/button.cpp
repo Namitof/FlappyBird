@@ -1,5 +1,7 @@
 #include "ui/button.h"
 
+#include "raylib.h"
+
 namespace ReyesCuadra
 {
     // Tamano y estilo de los botones (solo se usan en este archivo)

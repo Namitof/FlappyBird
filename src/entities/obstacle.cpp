@@ -1,5 +1,7 @@
 #include "entities/obstacle.h"
 
+#include "raylib.h"
+
 namespace ReyesCuadra
 {
     // Valores de configuracion del obstaculo (solo se usan en este archivo)

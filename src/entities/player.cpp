@@ -1,5 +1,7 @@
 #include "entities/player.h"
 
+#include "raylib.h"
+
 namespace ReyesCuadra
 {
     // Valores de configuracion del jugador (solo se usan en este archivo)

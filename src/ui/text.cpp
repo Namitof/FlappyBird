@@ -1,5 +1,7 @@
 #include "ui/text.h"
 
+#include "raylib.h"
+
 namespace ReyesCuadra
 {
     void DrawCenteredText(const char* text, int positionY, int fontSize, Color color)

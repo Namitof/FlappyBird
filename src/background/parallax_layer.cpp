@@ -1,5 +1,7 @@
 #include "background/parallax_layer.h"
 
+#include "raylib.h"
+
 namespace ReyesCuadra
 {
     // Cantidad de veces que se dibuja el patron: con dos copias, una al lado de la otra, siempre se cubre toda la pantalla
