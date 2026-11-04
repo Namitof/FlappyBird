@@ -1,5 +1,5 @@
 #include "scenes/main_menu.h"
-
+#include <iterator>
 #include "raylib.h"
 
 #include "ui/button.h"
@@ -13,6 +13,14 @@ namespace ReyesCuadra
     static const char* PLAY_BUTTON_TEXT = "Jugar";
     static const char* CREDITS_BUTTON_TEXT = "Creditos";
     static const char* EXIT_BUTTON_TEXT = "Salir";
+    static const char* CONTROLS_TITLE_TEXT = "Controles:";
+
+    static const char* CONTROLS_LINES[] =
+    {
+        "Espacio para saltar",
+        "R para reiniciar",
+        "Escape para salir"
+    };
 
     // Version del juego, que ahora se muestra en un borde del menu
     static const char* GAME_VERSION_TEXT = "v0.3";
@@ -25,19 +33,27 @@ namespace ReyesCuadra
     static const int TEXT_MARGIN = 10;
     static const float FIRST_BUTTON_POSITION_Y = 200.0f;
     static const float BUTTON_SPACING = 70.0f; // Distancia vertical entre el comienzo de un boton y el siguiente
+    static const int CONTROLS_POSITION_X = 30;
+    static const int CONTROLS_TITLE_POSITION_Y = 200;
+    static const int CONTROLS_FIRST_LINE_POSITION_Y = 235;
+    static const int CONTROLS_LINE_SPACING = 30;
+
 
     // Colores
     static const Color MENU_BACKGROUND_COLOR = SKYBLUE;
     static const Color TITLE_COLOR = DARKGREEN;
     static const Color TEXT_COLOR = DARKGRAY;
+    static const Color CONTROLS_TITLE_COLOR = DARKBLUE;
 
     // Botones del menu (solo se usan en este archivo)
     static Button playButton;
     static Button creditsButton;
+    static Button instructionsButton;
     static Button exitButton;
 
     // Dibuja la version del juego en la esquina inferior derecha
     static void DrawGameVersion();
+    static void DrawGameInstructions();
 
     void InitMainMenu()
     {
@@ -79,6 +95,8 @@ namespace ReyesCuadra
         DrawButton(creditsButton);
         DrawButton(exitButton);
 
+        DrawGameInstructions();
+
         DrawGameVersion();
     }
 
@@ -89,5 +107,19 @@ namespace ReyesCuadra
         const int versionPositionY = GetScreenHeight() - SMALL_FONT_SIZE - TEXT_MARGIN;
 
         DrawText(GAME_VERSION_TEXT, versionPositionX, versionPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
+    }
+
+    static void DrawGameInstructions()
+    {
+        DrawText(CONTROLS_TITLE_TEXT, CONTROLS_POSITION_X, CONTROLS_TITLE_POSITION_Y, SMALL_FONT_SIZE, CONTROLS_TITLE_COLOR);
+
+        const int lineCount = static_cast<int>(std::size(CONTROLS_LINES));
+
+        for (int lineIndex = 0; lineIndex < lineCount; lineIndex++)
+        {
+            const int linePositionY = CONTROLS_FIRST_LINE_POSITION_Y + lineIndex * CONTROLS_LINE_SPACING;
+
+            DrawText(CONTROLS_LINES[lineIndex], CONTROLS_POSITION_X, linePositionY, SMALL_FONT_SIZE, CONTROLS_TITLE_COLOR);
+        }
     }
 }
