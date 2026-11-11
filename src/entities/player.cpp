@@ -6,7 +6,6 @@ namespace ReyesCuadra
 {
     // Valores de configuracion del jugador (solo se usan en este archivo)
     static const float PLAYER_SIZE = 40.0f;
-    static const float PLAYER_POSITION_X = 100.0f;
     static const float GRAVITY = 1200.0f;      // Aceleracion hacia abajo en pixeles por segundo al cuadrado
     static const float JUMP_VELOCITY = -450.0f; // Velocidad que recibe al saltar (negativa porque va hacia arriba)
     static const KeyboardKey JUMP_KEY = KEY_SPACE;
@@ -21,16 +20,18 @@ namespace ReyesCuadra
     // Frena al jugador cuando choca contra el borde superior de la pantalla (el techo)
     static void StopPlayerAtCeiling(Player& player);
 
-    Player CreatePlayer(int screenHeight)
+    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX)
     {
         Player player;
 
         player.body.width = PLAYER_SIZE;
         player.body.height = PLAYER_SIZE;
-        player.body.x = PLAYER_POSITION_X;
+        player.body.x = posX;
         player.body.y = (static_cast<float>(screenHeight) - PLAYER_SIZE) / 2.0f;
         player.verticalVelocity = 0.0f;
-        player.color = PLAYER_COLOR;
+        player.color = color;
+        player.keyJump = keyJump;
+        player.isActive = true;
 
         return player;
     }
@@ -38,14 +39,17 @@ namespace ReyesCuadra
     void UpdatePlayer(Player& player, float deltaTime)
     {
         // El salto se chequea antes de mover, para que el jugador suba en el mismo frame en que se presiona
-        HandleJumpInput(player);
-        ApplyGravity(player, deltaTime);
-        StopPlayerAtCeiling(player);
+        if (player.isActive)
+        {
+            HandleJumpInput(player);
+            ApplyGravity(player, deltaTime);
+            StopPlayerAtCeiling(player);
+        }
     }
 
     bool HasPlayerReachedFloor(const Player& player, int screenHeight)
     {
-        const float playerBottom = player.body.y + player.body.height;
+        const float playerBottom = player.body.y /*+ player.body.height*/;
 
         return playerBottom >= static_cast<float>(screenHeight);
     }
@@ -58,7 +62,7 @@ namespace ReyesCuadra
     static void HandleJumpInput(Player& player)
     {
         // Se reemplaza la velocidad (no se suma) para que el salto sea inmediato aunque el jugador venga cayendo rapido
-        if (IsKeyPressed(JUMP_KEY))
+        if (IsKeyPressed(player.keyJump))
         {
             player.verticalVelocity = JUMP_VELOCITY;
         }

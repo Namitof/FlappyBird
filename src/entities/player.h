@@ -11,10 +11,12 @@ namespace ReyesCuadra
         Rectangle body;
         float verticalVelocity; // Velocidad vertical en pixeles por segundo (negativa = sube, positiva = cae)
         Color color;
+        KeyboardKey keyJump;
+        bool isActive;
     };
 
     // Crea al jugador en el lado izquierdo de la pantalla, centrado verticalmente y quieto
-    Player CreatePlayer(int screenHeight);
+    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX);
 
     // Aplica la gravedad y el salto al jugador, sin dejar que pase el techo
     void UpdatePlayer(Player& player, float deltaTime);
