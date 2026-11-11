@@ -29,6 +29,7 @@ namespace ReyesCuadra
     {
         { "Desarrollo y programacion", true },
         { "Valentin Reyes Cuadra", false },
+        { "Nahuel Suarez", false },
         { "Herramientas", true },
         { "raylib 6.2 (https://www.raylib.com)", false },
         { "Visual Studio 2026", false },
