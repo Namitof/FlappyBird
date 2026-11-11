@@ -9,184 +9,254 @@
 
 namespace ReyesCuadra
 {
-    // Estados posibles dentro de una partida
-    enum class RunState
-    {
-        Playing,
-        GameOver
-    };
+	// Estados posibles dentro de una partida
+	enum class RunState
+	{
+		Playing,
+		GameOver
+	};
 
-    // Motivos por los que se puede perder
-    enum class DefeatReason
-    {
-        ObstacleCollision,
-        FellToFloor
-    };
+	// Motivos por los que se puede perder
+	enum class DefeatReason
+	{
+		ObstacleCollision,
+		FellToFloor,
+		AllPlayersEliminated
+	};
 
-    // Teclas de esta escena
-    static const KeyboardKey BACK_TO_MENU_KEY = KEY_ESCAPE;
-    static const KeyboardKey RESTART_KEY = KEY_R;
+	// Teclas de esta escena
+	static const KeyboardKey BACK_TO_MENU_KEY = KEY_ESCAPE;
+	static const KeyboardKey RESTART_KEY = KEY_R;
 
-    // Textos que ve el usuario
-    static const char* CONTROLS_TEXT = "ESPACIO para saltar. Pasa por el hueco del obstaculo verde";
-    static const char* BACK_TO_MENU_TEXT = "ESC para volver al menu";
-    static const char* GAME_OVER_TITLE_TEXT = "PERDISTE";
-    static const char* OBSTACLE_DEFEAT_TEXT = "Chocaste contra el obstaculo";
-    static const char* FLOOR_DEFEAT_TEXT = "Caiste al piso";
-    static const char* GAME_OVER_OPTIONS_TEXT = "Presiona R para reiniciar o ESC para volver al menu";
+	// Textos que ve el usuario
+	static const char* CONTROLS_TEXT = "Pasa por el hueco del obstaculo verde";
+	static const char* BACK_TO_MENU_TEXT = "ESC para volver al menu";
+	static const char* GAME_OVER_TITLE_TEXT = "PERDISTE";
+	static const char* OBSTACLE_DEFEAT_TEXT = "Chocaste contra el obstaculo";
+	static const char* FLOOR_DEFEAT_TEXT = "Caiste al piso";
+	static const char* PLAYERS_DEFEAT_TEXT = "Todos los jugadores fueron eliminados";
+	static const char* GAME_OVER_OPTIONS_TEXT = "Presiona R para reiniciar o ESC para volver al menu";
 
-    // Distribucion de los textos
-    static const int TEXT_MARGIN = 10;
-    static const int SMALL_FONT_SIZE = 20;
-    static const int TITLE_FONT_SIZE = 60;
-    static const int GAME_OVER_LINE_SPACING = 50;
+	// Distribucion de los textos
+	static const int TEXT_MARGIN = 10;
+	static const int SMALL_FONT_SIZE = 20;
+	static const int TITLE_FONT_SIZE = 60;
+	static const int GAME_OVER_LINE_SPACING = 50;
 
-    // Colores
-    static const Color GAMEPLAY_BACKGROUND_COLOR = SKYBLUE;
-    static const Color TEXT_COLOR = DARKGRAY;
-    static const Color GAME_OVER_TITLE_COLOR = RED;
+	// Colores
+	static const Color GAMEPLAY_BACKGROUND_COLOR = SKYBLUE;
+	static const Color TEXT_COLOR = DARKGRAY;
+	static const Color GAME_OVER_TITLE_COLOR = RED;
 
-    // Todo lo que la partida necesita mientras se juega
-    struct GameplayState
-    {
-        Background background;
-        Player player;
-        Obstacle obstacle;
-        RunState runState;
-        DefeatReason defeatReason;
-    };
+	// Todo lo que la partida necesita mientras se juega
+	struct GameplayState
+	{
+		Background background;
+		Player playerOne;
+		Player playerTwo;
+		Obstacle obstacle;
+		RunState runState;
+		DefeatReason defeatReason;
+		bool isMultiplayerModeActive;
+	};
 
-    // Estado de la partida actual (solo se usa en este archivo)
-    static GameplayState gameplay;
+	// Controles de cada jugador
+	const KeyboardKey JUMP_PLAYER_ONE = KEY_SPACE;
+	const KeyboardKey JUMP_PLAYER_TWO = KEY_UP;
 
-    // Mueve el fondo, al jugador y al obstaculo y chequea las condiciones de derrota
-    static void UpdatePlaying(float deltaTime);
+	// Colores de cada jugador
+	const Color COLOR_PLAYER_ONE = YELLOW;
+	const Color COLOR_PLAYER_TWO = PINK;
 
-    // Termina la partida guardando el motivo, para mostrarlo en el mensaje de derrota
-    static void EndRun(DefeatReason reason);
+	// Punto de aparicion en eje x de cada jugador
+	static const float PLAYER_TWO_POSITION_X = 100.0f;
+	static const float PLAYER_ONE_POSITION_X = 150.0f;
 
-    // Espera a que el usuario elija reiniciar despues de perder
-    static void UpdateGameOver();
+	// Estado de la partida actual (solo se usa en este archivo)
+	static GameplayState gameplay;
 
-    // Dibuja los controles en la parte de arriba de la pantalla
-    static void DrawHud();
+	// Mueve el fondo, al jugador y al obstaculo y chequea las condiciones de derrota
+	static void UpdatePlaying(float deltaTime);
 
-    // Dibuja el mensaje de derrota, su motivo y las opciones disponibles
-    static void DrawGameOverMessage(DefeatReason reason);
+	// Termina la partida guardando el motivo, para mostrarlo en el mensaje de derrota
+	static void EndRun(DefeatReason reason);
 
-    // Devuelve el texto que explica el motivo de la derrota
-    static const char* GetDefeatReasonText(DefeatReason reason);
+	// Espera a que el usuario elija reiniciar despues de perder
+	static void UpdateGameOver();
 
-    void InitGameplay()
-    {
-        const int screenWidth = GetScreenWidth();
-        const int screenHeight = GetScreenHeight();
+	// Dibuja los controles en la parte de arriba de la pantalla
+	static void DrawHud();
 
-        gameplay.background = CreateBackground(screenWidth);
-        gameplay.player = CreatePlayer(screenHeight);
-        gameplay.obstacle = CreateObstacle(screenWidth, screenHeight);
-        gameplay.runState = RunState::Playing;
-        gameplay.defeatReason = DefeatReason::ObstacleCollision;
-    }
+	// Dibuja el mensaje de derrota, su motivo y las opciones disponibles
+	static void DrawGameOverMessage(DefeatReason reason);
 
-    Scene UpdateGameplay()
-    {
-        // Se puede volver al menu en cualquier momento, tanto jugando como despues de perder
-        if (IsKeyPressed(BACK_TO_MENU_KEY))
-        {
-            return Scene::MainMenu;
-        }
+	// Devuelve el texto que explica el motivo de la derrota
+	static const char* GetDefeatReasonText(DefeatReason reason);
 
-        switch (gameplay.runState)
-        {
-        case RunState::Playing:
-            UpdatePlaying(GetFrameTime());
-            break;
+	void InitGameplay(bool isMultiplayerModeActive)
+	{
+		const int screenWidth = GetScreenWidth();
+		const int screenHeight = GetScreenHeight();
 
-        case RunState::GameOver:
-            UpdateGameOver();
-            break;
-        }
+		gameplay.background = CreateBackground(screenWidth);
+		gameplay.playerOne = CreatePlayer(screenHeight, JUMP_PLAYER_ONE, COLOR_PLAYER_ONE, PLAYER_ONE_POSITION_X);
+		gameplay.playerTwo = CreatePlayer(screenHeight, JUMP_PLAYER_TWO, COLOR_PLAYER_TWO, PLAYER_TWO_POSITION_X);
+		gameplay.obstacle = CreateObstacle(screenWidth, screenHeight);
+		gameplay.runState = RunState::Playing;
+		gameplay.defeatReason = DefeatReason::ObstacleCollision;
+		gameplay.isMultiplayerModeActive = isMultiplayerModeActive;
+	}
 
-        return Scene::Gameplay;
-    }
+	Scene UpdateGameplay()
+	{
+		// Se puede volver al menu en cualquier momento, tanto jugando como despues de perder
+		if (IsKeyPressed(BACK_TO_MENU_KEY))
+		{
+			return Scene::MainMenu;
+		}
 
-    void DrawGameplay()
-    {
-        ClearBackground(GAMEPLAY_BACKGROUND_COLOR);
+		switch (gameplay.runState)
+		{
+		case RunState::Playing:
+			UpdatePlaying(GetFrameTime());
+			break;
 
-        // El fondo va primero para que todo lo demas se dibuje encima
-        DrawBackground(gameplay.background, GetScreenHeight());
+		case RunState::GameOver:
+			UpdateGameOver();
+			break;
+		}
 
-        // Los elementos se siguen dibujando despues de perder, para que el jugador vea como fue el choque
-        DrawObstacle(gameplay.obstacle);
-        DrawPlayer(gameplay.player);
+		return Scene::Gameplay;
+	}
 
-        DrawHud();
+	void DrawGameplay()
+	{
+		ClearBackground(GAMEPLAY_BACKGROUND_COLOR);
 
-        if (gameplay.runState == RunState::GameOver)
-        {
-            DrawGameOverMessage(gameplay.defeatReason);
-        }
-    }
+		// El fondo va primero para que todo lo demas se dibuje encima
+		DrawBackground(gameplay.background, GetScreenHeight());
 
-    static void UpdatePlaying(float deltaTime)
-    {
-        // El fondo solo se mueve mientras se juega, igual que el obstaculo
-        UpdateBackground(gameplay.background, deltaTime);
-        UpdatePlayer(gameplay.player, deltaTime);
-        UpdateObstacle(gameplay.obstacle, GetScreenWidth(), GetScreenHeight(), deltaTime);
+		// Los elementos se siguen dibujando despues de perder, para que el jugador vea como fue el choque
+		DrawObstacle(gameplay.obstacle);
+		if (gameplay.playerOne.isActive)
+		{
+			DrawPlayer(gameplay.playerOne);
 
-        // Condiciones de derrota: el jugador toca el obstaculo o cae hasta el piso
-        if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.player.body))
-        {
-            EndRun(DefeatReason::ObstacleCollision);
-        }
-        else if (HasPlayerReachedFloor(gameplay.player, GetScreenHeight()))
-        {
-            EndRun(DefeatReason::FellToFloor);
-        }
-    }
+		}
+		if (gameplay.isMultiplayerModeActive && gameplay.playerTwo.isActive)
+		{
+			DrawPlayer(gameplay.playerTwo);
+		}
 
-    static void EndRun(DefeatReason reason)
-    {
-        gameplay.runState = RunState::GameOver;
-        gameplay.defeatReason = reason;
-    }
+		DrawHud();
 
-    static void UpdateGameOver()
-    {
-        // Reiniciar arranca otra partida sin tener que pasar por el menu
-        if (IsKeyPressed(RESTART_KEY))
-        {
-            InitGameplay();
-        }
-    }
+		if (gameplay.runState == RunState::GameOver)
+		{
+			DrawGameOverMessage(gameplay.defeatReason);
+		}
+	}
 
-    static void DrawHud()
-    {
-        DrawText(CONTROLS_TEXT, TEXT_MARGIN, TEXT_MARGIN, SMALL_FONT_SIZE, TEXT_COLOR);
-        DrawText(BACK_TO_MENU_TEXT, TEXT_MARGIN, TEXT_MARGIN * 2 + SMALL_FONT_SIZE, SMALL_FONT_SIZE, TEXT_COLOR);
-    }
+	static void UpdatePlaying(float deltaTime)
+	{
+		// El fondo solo se mueve mientras se juega, igual que el obstaculo
+		UpdateBackground(gameplay.background, deltaTime);
+		if (gameplay.playerOne.isActive)
+		{
+			UpdatePlayer(gameplay.playerOne, deltaTime);
+		}
+		if (gameplay.isMultiplayerModeActive && gameplay.playerTwo.isActive)
+		{
+			UpdatePlayer(gameplay.playerTwo, deltaTime);
+		}
+		UpdateObstacle(gameplay.obstacle, GetScreenWidth(), GetScreenHeight(), deltaTime);
 
-    static void DrawGameOverMessage(DefeatReason reason)
-    {
-        const int titlePositionY = GetScreenHeight() / 2 - TITLE_FONT_SIZE;
-        const int reasonPositionY = titlePositionY + TITLE_FONT_SIZE + TEXT_MARGIN;
-        const int optionsPositionY = reasonPositionY + GAME_OVER_LINE_SPACING;
+		// Condiciones de derrota: el jugador toca el obstaculo o cae hasta el piso
+		if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.playerOne.body))
+		{
+			if (!gameplay.isMultiplayerModeActive)
+			{
+				EndRun(DefeatReason::ObstacleCollision);
+			}
+			else
+			{
+				gameplay.playerOne.isActive = false;
+			}
+		}
+		else if (HasPlayerReachedFloor(gameplay.playerOne, GetScreenHeight()))
+		{
+			if (!gameplay.isMultiplayerModeActive)
+			{
+				EndRun(DefeatReason::FellToFloor);
+			}
+			else
+			{
+				gameplay.playerOne.isActive = false;
+			}
+		}
 
-        DrawCenteredText(GAME_OVER_TITLE_TEXT, titlePositionY, TITLE_FONT_SIZE, GAME_OVER_TITLE_COLOR);
-        DrawCenteredText(GetDefeatReasonText(reason), reasonPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
-        DrawCenteredText(GAME_OVER_OPTIONS_TEXT, optionsPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
-    }
+		if (gameplay.isMultiplayerModeActive)
+		{
+			if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.playerTwo.body))
+			{
+				gameplay.playerTwo.isActive = false;
+			}
+			else if (HasPlayerReachedFloor(gameplay.playerTwo, GetScreenHeight()))
+			{
+				gameplay.playerTwo.isActive = false;
+			}
 
-    static const char* GetDefeatReasonText(DefeatReason reason)
-    {
-        if (reason == DefeatReason::FellToFloor)
-        {
-            return FLOOR_DEFEAT_TEXT;
-        }
+			if (!gameplay.playerOne.isActive && !gameplay.playerTwo.isActive)
+			{
+				EndRun(DefeatReason::AllPlayersEliminated);
+			}
+		}
+	}
 
-        return OBSTACLE_DEFEAT_TEXT;
-    }
+	static void EndRun(DefeatReason reason)
+	{
+		gameplay.runState = RunState::GameOver;
+		gameplay.defeatReason = reason;
+	}
+
+	static void UpdateGameOver()
+	{
+		// Reiniciar arranca otra partida sin tener que pasar por el menu
+		if (IsKeyPressed(RESTART_KEY))
+		{
+			InitGameplay(gameplay.isMultiplayerModeActive);
+		}
+	}
+
+	static void DrawHud()
+	{
+		DrawText(CONTROLS_TEXT, TEXT_MARGIN, TEXT_MARGIN, SMALL_FONT_SIZE, TEXT_COLOR);
+		DrawText(BACK_TO_MENU_TEXT, TEXT_MARGIN, TEXT_MARGIN * 2 + SMALL_FONT_SIZE, SMALL_FONT_SIZE, TEXT_COLOR);
+	}
+
+	static void DrawGameOverMessage(DefeatReason reason)
+	{
+		const int titlePositionY = GetScreenHeight() / 2 - TITLE_FONT_SIZE;
+		const int reasonPositionY = titlePositionY + TITLE_FONT_SIZE + TEXT_MARGIN;
+		const int optionsPositionY = reasonPositionY + GAME_OVER_LINE_SPACING;
+
+		DrawCenteredText(GAME_OVER_TITLE_TEXT, titlePositionY, TITLE_FONT_SIZE, GAME_OVER_TITLE_COLOR);
+		DrawCenteredText(GetDefeatReasonText(reason), reasonPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
+		DrawCenteredText(GAME_OVER_OPTIONS_TEXT, optionsPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
+	}
+
+	static const char* GetDefeatReasonText(DefeatReason reason)
+	{
+		if (reason == DefeatReason::ObstacleCollision)
+		{
+			return OBSTACLE_DEFEAT_TEXT;
+		}
+		else if (reason == DefeatReason::FellToFloor)
+		{
+			return FLOOR_DEFEAT_TEXT;
+		}
+		else
+		{
+			return PLAYERS_DEFEAT_TEXT;
+		}
+	}
 }

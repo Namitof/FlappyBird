@@ -6,7 +6,7 @@
 namespace ReyesCuadra
 {
     // Arranca una partida nueva: jugador y obstaculo en sus posiciones iniciales
-    void InitGameplay();
+    void InitGameplay(bool isMultiplayerModeActive);
 
     // Actualiza la partida y devuelve la escena a la que hay que ir (sigue en Gameplay o vuelve al menu)
     Scene UpdateGameplay();
