@@ -12,7 +12,6 @@ namespace ReyesCuadra
     // Configuracion de la ventana
     static const int SCREEN_WIDTH = 800;
     static const int SCREEN_HEIGHT = 450;
-    static const int TARGET_FPS = 60;
     static const char* WINDOW_TITLE = "Flappy Bird";
 
     // Escena con la que arranca el juego
@@ -25,7 +24,7 @@ namespace ReyesCuadra
     static Scene UpdateCurrentScene(Scene currentScene);
 
     // Prepara la escena a la que se acaba de entrar
-    static void EnterScene(Scene scene);
+    static void EnterScene(Scene scene, bool isMultiplayerModeActive);
 
     // Dibuja la escena actual
     static void DrawCurrentScene(Scene currentScene);
@@ -52,7 +51,6 @@ namespace ReyesCuadra
     static void InitGame()
     {
         InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-        SetTargetFPS(TARGET_FPS);
 
         // ESC deja de cerrar el juego (es la tecla de salida por defecto de raylib), ahora se usa para volver al menu
         SetExitKey(KEY_NULL);
@@ -63,12 +61,14 @@ namespace ReyesCuadra
 
     static Scene UpdateCurrentScene(Scene currentScene)
     {
+        bool isMultiplayerModeActive = false;
+
         Scene nextScene = currentScene;
 
         switch (currentScene)
         {
         case Scene::MainMenu:
-            nextScene = UpdateMainMenu();
+            nextScene = UpdateMainMenu(isMultiplayerModeActive);
             break;
 
         case Scene::Gameplay:
@@ -86,18 +86,18 @@ namespace ReyesCuadra
         // Solo se prepara la escena cuando se cambia, no en todos los frames
         if (nextScene != currentScene)
         {
-            EnterScene(nextScene);
+            EnterScene(nextScene, isMultiplayerModeActive);
         }
 
         return nextScene;
     }
 
-    static void EnterScene(Scene scene)
+    static void EnterScene(Scene scene, bool isMultiplayerModeActive)
     {
         // Cada vez que se entra al gameplay desde el menu arranca una partida nueva
         if (scene == Scene::Gameplay)
         {
-            InitGameplay();
+            InitGameplay(isMultiplayerModeActive);
         }
     }
 

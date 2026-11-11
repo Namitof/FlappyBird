@@ -9,7 +9,7 @@ namespace ReyesCuadra
     void InitMainMenu();
 
     // Revisa si se eligio alguna opcion y devuelve la escena a la que hay que ir
-    Scene UpdateMainMenu();
+    Scene UpdateMainMenu(bool& multiplayerMode);
 
     // Dibuja el titulo, los botones y la version del juego
     void DrawMainMenu();

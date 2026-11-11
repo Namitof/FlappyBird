@@ -11,33 +11,36 @@ namespace ReyesCuadra
     static const char* GAME_TITLE_TEXT = "FLAPPY BIRD";
     static const char* MENU_HINT_TEXT = "Hace clic en una opcion";
     static const char* PLAY_BUTTON_TEXT = "Jugar";
+    static const char* GAME_MODE_BUTTON_TEXT = "1 Jugador";
     static const char* CREDITS_BUTTON_TEXT = "Creditos";
     static const char* EXIT_BUTTON_TEXT = "Salir";
     static const char* CONTROLS_TITLE_TEXT = "Controles:";
 
     static const char* CONTROLS_LINES[] =
     {
-        "Espacio para saltar",
+        "P1 Color -> Amarillo",
+        "P2 Color -> Rosa",
+        "P1 Saltar -> Espacio",
+        "P2 Saltar -> Flecha arriba",
         "R para reiniciar",
         "Escape para salir"
     };
 
     // Version del juego, que ahora se muestra en un borde del menu
-    static const char* GAME_VERSION_TEXT = "v0.3";
+    static const char* GAME_VERSION_TEXT = "v0.4";
 
     // Distribucion de los elementos en la pantalla
-    static const int TITLE_POSITION_Y = 60;
+    static const int TITLE_POSITION_Y = 40;
     static const int TITLE_FONT_SIZE = 60;
-    static const int HINT_POSITION_Y = 140;
+    static const int HINT_POSITION_Y = 100;
     static const int SMALL_FONT_SIZE = 20;
     static const int TEXT_MARGIN = 10;
-    static const float FIRST_BUTTON_POSITION_Y = 200.0f;
+    static const float FIRST_BUTTON_POSITION_Y = 150.0f;
     static const float BUTTON_SPACING = 70.0f; // Distancia vertical entre el comienzo de un boton y el siguiente
-    static const int CONTROLS_POSITION_X = 30;
-    static const int CONTROLS_TITLE_POSITION_Y = 200;
-    static const int CONTROLS_FIRST_LINE_POSITION_Y = 235;
+    static const int CONTROLS_POSITION_X = 20;
+    static const int CONTROLS_TITLE_POSITION_Y = 130;
+    static const int CONTROLS_FIRST_LINE_POSITION_Y = 180;
     static const int CONTROLS_LINE_SPACING = 30;
-
 
     // Colores
     static const Color MENU_BACKGROUND_COLOR = SKYBLUE;
@@ -47,9 +50,13 @@ namespace ReyesCuadra
 
     // Botones del menu (solo se usan en este archivo)
     static Button playButton;
+    static Button gameModeButton;
     static Button creditsButton;
     static Button instructionsButton;
     static Button exitButton;
+
+    // Booleano para controlar modo de juego
+    static bool isMultiplayerModeActive;
 
     // Dibuja la version del juego en la esquina inferior derecha
     static void DrawGameVersion();
@@ -59,14 +66,30 @@ namespace ReyesCuadra
     {
         // Los botones van uno debajo del otro, centrados en la pantalla
         playButton = CreateCenteredButton(PLAY_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y);
-        creditsButton = CreateCenteredButton(CREDITS_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING);
-        exitButton = CreateCenteredButton(EXIT_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 2.0f);
+        gameModeButton = CreateCenteredButton(GAME_MODE_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING );
+        creditsButton = CreateCenteredButton(CREDITS_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 2.0f);
+        exitButton = CreateCenteredButton(EXIT_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 3.0f);
     }
 
-    Scene UpdateMainMenu()
+    Scene UpdateMainMenu(bool& multiplayerMode)
     {
+        if (IsButtonClicked(gameModeButton))
+        {
+            isMultiplayerModeActive = !isMultiplayerModeActive;
+        }
+
+        if (isMultiplayerModeActive)
+        {
+            gameModeButton.text = "2 Jugadores";
+        }
+        else
+        {
+            gameModeButton.text = "1 Jugador";
+        }
+
         if (IsButtonClicked(playButton))
         {
+            multiplayerMode = isMultiplayerModeActive;
             return Scene::Gameplay;
         }
 
@@ -92,6 +115,7 @@ namespace ReyesCuadra
         DrawCenteredText(MENU_HINT_TEXT, HINT_POSITION_Y, SMALL_FONT_SIZE, TEXT_COLOR);
 
         DrawButton(playButton);
+        DrawButton(gameModeButton);
         DrawButton(creditsButton);
         DrawButton(exitButton);
 
