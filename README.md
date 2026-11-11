@@ -5,21 +5,20 @@ Práctica Profesional I: Desarrollo de Videojuegos I (Image Campus, 2026).
 
 El proyecto se desarrolla de forma iterativa: cada versión agrega funcionalidades nuevas.
 
-## Versión actual: 0.3
+## Versión actual: 0.4
 
-- El juego arranca en un menú con las opciones **Jugar**, **Créditos** y **Salir**; el menú también muestra los controles y la versión en una esquina.
-- El jugador controla un cuadrado amarillo en el lado izquierdo de la pantalla: la gravedad lo hace caer y con ESPACIO salta.
-- Un obstáculo verde de dos partes (arriba y abajo, con un hueco en el medio) aparece por la derecha y avanza hacia la izquierda; al salir de la pantalla vuelve a aparecer por la derecha con el hueco a otra altura.
-- Se pierde al chocar con el obstáculo o al caer al piso. El techo frena al jugador.
-- El gameplay tiene un fondo con efecto parallax de 3 capas de edificios que se mueven a distintas velocidades.
-- La pantalla de créditos tiene un botón **Volver** para regresar al menú.
+- Se agregó un modo de juego para 2 jugadores.
+- Se actualizaron los controles mostrados en el menú principal.
+- Se actualizaron los créditos.
+- Se modificó la colisión con el piso: ahora el jugador pierde al salir completamente de la pantalla en lugar de perder al tocar el piso.
 
 ## Controles
 
 | Tecla | Acción |
 | --- | --- |
 | Clic izquierdo | Elegir una opción del menú o volver desde los créditos |
-| ESPACIO | Saltar |
+| ESPACIO | Saltar para el jugador 1 |
+| FLECHA ARRIBA | Saltar para el jugador 2 |
 | R | Reiniciar después de perder |
 | ESC | Volver al menú desde el gameplay o los créditos |
 
@@ -34,3 +33,4 @@ raylib 6.2 ya viene incluida en la carpeta `lib/raylib`.
 ## Autor
 
 Valentin Reyes — [GitHub](https://github.com/SoloDimeDeluxe) · [itch.io](https://solodim3deluxe.itch.io/)
+Nahuel Suarez — [GitHub](https://github.com/Namitof) · [itch.io](https://namitof.itch.io/)
