@@ -1,5 +1,7 @@
 #include "scenes/main_menu.h"
+
 #include <iterator>
+
 #include "raylib.h"
 
 #include "ui/button.h"
