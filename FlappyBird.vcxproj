@@ -61,8 +61,8 @@
       <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>cd "$(SolutionDir)scripts\"
+CopyRes.bat "$(ProjectDir)res" "$(OutDir)res"</Command>
       <Message>
       </Message>
     </PostBuildEvent>
