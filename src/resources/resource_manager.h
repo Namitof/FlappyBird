@@ -9,7 +9,8 @@ namespace ReyesCuadra
 	Sound GetHitFloorSound();
 	Sound GetHitPipeSound();
 	Sound GetGameOverSound();
-	Sound GetBirdSound();
+	Sound GetBirdOneSound();
+	Sound GetBirdTwoSound();
 	Sound GetSelectSound();
 
 	Music GetGameMusic();
@@ -18,7 +19,8 @@ namespace ReyesCuadra
 	void PlayHitFloorSound();
 	void PlayHitPipeSound();
 	void PlayGameOverSound();
-	void PlayBirdSound();
+	void PlayBirdOneSound();
+	void PlayBirdTwoSound();
 	void PlaySelectSound();
 
 	void PlayMenuMusic();

@@ -8,7 +8,8 @@ namespace ReyesCuadra
 	static Sound hitFloor;
 	static Sound hitPipe;
 	static Sound gameOver;
-	static Sound bird;
+	static Sound birdOne;
+	static Sound birdTwo;
 	static Sound select;
 
 	//Musica
@@ -20,7 +21,8 @@ namespace ReyesCuadra
 		hitFloor = LoadSound("res/Sounds/hitFloor.wav");
 		hitPipe = LoadSound("res/Sounds/hitPipe.wav");
 		gameOver = LoadSound("res/Sounds/gameOver.wav");
-		bird = LoadSound("res/Sounds/bird.wav");
+		birdOne = LoadSound("res/Sounds/bird.wav");
+		birdTwo = LoadSound("res/Sounds/bird.wav");
 		select = LoadSound("res/Sounds/select.wav");
 
 		gameMusic = LoadMusicStream("res/Music/gameMusic.ogg");
@@ -42,14 +44,19 @@ namespace ReyesCuadra
 		return gameOver;
 	}
 
-	Sound GetBirdSound()
+	Sound GetBirdOneSound()
 	{
-		return bird;
+		return birdOne;
+	}
+
+	Sound GetBirdTwoSound()
+	{
+		return birdTwo;
 	}
 
 	Sound GetSelectSound()
 	{
-		return bird;
+		return select;
 	}
 
 	Music GetGameMusic()
@@ -86,11 +93,19 @@ namespace ReyesCuadra
 		}
 	}
 
-	void PlayBirdSound()
+	void PlayBirdOneSound()
 	{
-		if (!IsSoundPlaying(bird))
+		if (!IsSoundPlaying(birdOne))
 		{
-			PlaySound(bird);
+			PlaySound(birdOne);
+		}
+	}
+
+	void PlayBirdTwoSound()
+	{
+		if (!IsSoundPlaying(birdTwo))
+		{
+			PlaySound(birdTwo);
 		}
 	}
 
@@ -157,7 +172,8 @@ namespace ReyesCuadra
 		UnloadSound(hitFloor);
 		UnloadSound(hitPipe);
 		UnloadSound(gameOver);
-		UnloadSound(bird);
+		UnloadSound(birdOne);
+		UnloadSound(birdTwo);
 		UnloadSound(select);
 
 		UnloadMusicStream(gameMusic);

@@ -22,7 +22,7 @@ namespace ReyesCuadra
     // Frena al jugador cuando choca contra el borde superior de la pantalla (el techo)
     static void StopPlayerAtCeiling(Player& player);
 
-    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX)
+    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX, int id)
     {
         Player player;
 
@@ -34,6 +34,7 @@ namespace ReyesCuadra
         player.color = color;
         player.keyJump = keyJump;
         player.isActive = true;
+        player.id = id;
 
         return player;
     }
@@ -66,7 +67,14 @@ namespace ReyesCuadra
         // Se reemplaza la velocidad (no se suma) para que el salto sea inmediato aunque el jugador venga cayendo rapido
         if (IsKeyPressed(player.keyJump))
         {
-            PlayBirdSound();
+            if (player.id == PLAYER_ONE_ID)
+            {
+                PlayBirdOneSound();
+            }
+            else if (player.id == PLAYER_TWO_ID)
+            {
+                PlayBirdTwoSound();
+            }
             player.verticalVelocity = JUMP_VELOCITY;
         }
     }

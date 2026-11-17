@@ -5,6 +5,9 @@
 
 namespace ReyesCuadra
 {
+    const int PLAYER_ONE_ID = 1;
+    const int PLAYER_TWO_ID = 2;
+
     // Personaje que controla el usuario: un cuadrado en el lado izquierdo de la pantalla
     struct Player
     {
@@ -13,10 +16,11 @@ namespace ReyesCuadra
         Color color;
         KeyboardKey keyJump;
         bool isActive;
+        int id;
     };
 
     // Crea al jugador en el lado izquierdo de la pantalla, centrado verticalmente y quieto
-    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX);
+    Player CreatePlayer(int screenHeight, KeyboardKey keyJump, Color color, float posX, int id);
 
     // Aplica la gravedad y el salto al jugador, sin dejar que pase el techo
     void UpdatePlayer(Player& player, float deltaTime);

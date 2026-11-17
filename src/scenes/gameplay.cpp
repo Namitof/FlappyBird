@@ -102,8 +102,8 @@ namespace ReyesCuadra
 		const int screenHeight = GetScreenHeight();
 
 		gameplay.background = CreateBackground(screenWidth);
-		gameplay.playerOne = CreatePlayer(screenHeight, JUMP_PLAYER_ONE, COLOR_PLAYER_ONE, PLAYER_ONE_POSITION_X);
-		gameplay.playerTwo = CreatePlayer(screenHeight, JUMP_PLAYER_TWO, COLOR_PLAYER_TWO, PLAYER_TWO_POSITION_X);
+		gameplay.playerOne = CreatePlayer(screenHeight, JUMP_PLAYER_ONE, COLOR_PLAYER_ONE, PLAYER_ONE_POSITION_X, PLAYER_ONE_ID);
+		gameplay.playerTwo = CreatePlayer(screenHeight, JUMP_PLAYER_TWO, COLOR_PLAYER_TWO, PLAYER_TWO_POSITION_X, PLAYER_TWO_ID);
 		gameplay.obstacle = CreateObstacle(screenWidth, screenHeight);
 		gameplay.runState = RunState::Playing;
 		gameplay.defeatReason = DefeatReason::ObstacleCollision;
