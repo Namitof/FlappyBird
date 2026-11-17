@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "resources/resource_manager.h"
+
 namespace ReyesCuadra
 {
     // Valores de configuracion del jugador (solo se usan en este archivo)
@@ -64,6 +66,7 @@ namespace ReyesCuadra
         // Se reemplaza la velocidad (no se suma) para que el salto sea inmediato aunque el jugador venga cayendo rapido
         if (IsKeyPressed(player.keyJump))
         {
+            PlayBirdSound();
             player.verticalVelocity = JUMP_VELOCITY;
         }
     }
