@@ -6,6 +6,7 @@
 #include "entities/player.h"
 #include "entities/obstacle.h"
 #include "ui/text.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -58,6 +59,8 @@ namespace ReyesCuadra
 		RunState runState;
 		DefeatReason defeatReason;
 		bool isMultiplayerModeActive;
+		bool playerOneDefeat;
+		bool playerTwoDefeat;
 	};
 
 	// Controles de cada jugador
@@ -105,6 +108,8 @@ namespace ReyesCuadra
 		gameplay.runState = RunState::Playing;
 		gameplay.defeatReason = DefeatReason::ObstacleCollision;
 		gameplay.isMultiplayerModeActive = isMultiplayerModeActive;
+		gameplay.playerOneDefeat = false;
+		gameplay.playerTwoDefeat = false;
 	}
 
 	Scene UpdateGameplay()
@@ -158,6 +163,8 @@ namespace ReyesCuadra
 
 	static void UpdatePlaying(float deltaTime)
 	{
+		PlayGameMusic();
+
 		// El fondo solo se mueve mientras se juega, igual que el obstaculo
 		UpdateBackground(gameplay.background, deltaTime);
 		if (gameplay.playerOne.isActive)
@@ -173,6 +180,12 @@ namespace ReyesCuadra
 		// Condiciones de derrota: el jugador toca el obstaculo o cae hasta el piso
 		if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.playerOne.body))
 		{
+			if (!gameplay.playerOneDefeat)
+			{
+				PlayHitPipeSound();
+				gameplay.playerOneDefeat = true;
+			}
+
 			if (!gameplay.isMultiplayerModeActive)
 			{
 				EndRun(DefeatReason::ObstacleCollision);
@@ -184,6 +197,12 @@ namespace ReyesCuadra
 		}
 		else if (HasPlayerReachedFloor(gameplay.playerOne, GetScreenHeight()))
 		{
+			if (!gameplay.playerOneDefeat)
+			{
+				PlayHitFloorSound();
+				gameplay.playerOneDefeat = true;
+			}
+
 			if (!gameplay.isMultiplayerModeActive)
 			{
 				EndRun(DefeatReason::FellToFloor);
@@ -198,28 +217,46 @@ namespace ReyesCuadra
 		{
 			if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.playerTwo.body))
 			{
+				if (!gameplay.playerTwoDefeat)
+				{
+					PlayHitPipeSound();
+					gameplay.playerTwoDefeat = true;
+				}
 				gameplay.playerTwo.isActive = false;
 			}
 			else if (HasPlayerReachedFloor(gameplay.playerTwo, GetScreenHeight()))
 			{
+				if (!gameplay.playerTwoDefeat)
+				{
+					PlayHitFloorSound();
+					gameplay.playerTwoDefeat = true;
+				}
 				gameplay.playerTwo.isActive = false;
 			}
 
 			if (!gameplay.playerOne.isActive && !gameplay.playerTwo.isActive)
 			{
+				PlayGameOverSound();
 				EndRun(DefeatReason::AllPlayersEliminated);
 			}
+
 		}
 	}
 
 	static void EndRun(DefeatReason reason)
 	{
+		if (gameplay.playerTwoDefeat || gameplay.playerOneDefeat)
+		{
+			PlayGameOverSound();
+		}
 		gameplay.runState = RunState::GameOver;
 		gameplay.defeatReason = reason;
 	}
 
 	static void UpdateGameOver()
 	{
+		StopGameMusic();
+
 		// Reiniciar arranca otra partida sin tener que pasar por el menu
 		if (IsKeyPressed(RESTART_KEY))
 		{
