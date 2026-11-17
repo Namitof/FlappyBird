@@ -10,19 +10,21 @@ namespace ReyesCuadra
     {
         Rectangle bounds;
         const char* text;
+        bool isHovered;
+        bool soundsPlaying;
     };
 
     // Crea un boton centrado horizontalmente en la pantalla, con su borde superior en la altura indicada
     Button CreateCenteredButton(const char* text, float positionY);
 
     // Devuelve true si el mouse esta encima del boton
-    bool IsButtonHovered(const Button& button);
+    bool IsButtonHovered(Button& button);
 
     // Devuelve true en el frame en que se hace clic izquierdo sobre el boton
-    bool IsButtonClicked(const Button& button);
+    bool IsButtonClicked(Button& button);
 
     // Dibuja el boton, resaltado si el mouse esta encima
-    void DrawButton(const Button& button);
+    void DrawButton(Button& button);
 }
 
 #endif // BUTTON_H

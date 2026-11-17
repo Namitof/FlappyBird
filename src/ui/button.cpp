@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "resources/resource_manager.h"
+
 namespace ReyesCuadra
 {
     // Tamano y estilo de los botones (solo se usan en este archivo)
@@ -24,21 +26,30 @@ namespace ReyesCuadra
         button.bounds.x = (static_cast<float>(GetScreenWidth()) - BUTTON_WIDTH) / 2.0f;
         button.bounds.y = positionY;
         button.text = text;
+        button.isHovered = false;
+        button.soundsPlaying = false;
 
         return button;
     }
 
-    bool IsButtonHovered(const Button& button)
+    bool IsButtonHovered(Button& button)
     {
-        return CheckCollisionPointRec(GetMousePosition(), button.bounds);
+        button.isHovered = CheckCollisionPointRec(GetMousePosition(), button.bounds);
+        if (button.isHovered && !button.soundsPlaying)
+        {
+            PlaySelectSound();
+            button.soundsPlaying = true;
+        }
+        return button.isHovered;
     }
 
-    bool IsButtonClicked(const Button& button)
+    bool IsButtonClicked(Button& button)
     {
+        button.soundsPlaying = button.isHovered;
         return IsButtonHovered(button) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
     }
 
-    void DrawButton(const Button& button)
+    void DrawButton(Button& button)
     {
         // Se resalta el boton cuando el mouse esta encima, para que el usuario sepa que se puede apretar
         const Color fillColor = IsButtonHovered(button) ? BUTTON_HOVER_COLOR : BUTTON_COLOR;
