@@ -6,6 +6,7 @@
 
 #include "ui/button.h"
 #include "ui/text.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -64,6 +65,8 @@ namespace ReyesCuadra
 
     Scene UpdateCredits()
     {
+        PlayMenuMusic();
+
         // Se vuelve al menu con el boton, igual que se navega en el menu, o con ESC, igual que en el gameplay
         if (IsButtonClicked(backButton) || IsKeyPressed(BACK_TO_MENU_KEY))
         {

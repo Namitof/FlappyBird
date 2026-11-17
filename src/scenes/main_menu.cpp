@@ -6,6 +6,7 @@
 
 #include "ui/button.h"
 #include "ui/text.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -75,6 +76,8 @@ namespace ReyesCuadra
 
     Scene UpdateMainMenu(bool& multiplayerMode)
     {
+        PlayMenuMusic();
+
         if (IsButtonClicked(gameModeButton))
         {
             isMultiplayerModeActive = !isMultiplayerModeActive;
@@ -92,6 +95,7 @@ namespace ReyesCuadra
         if (IsButtonClicked(playButton))
         {
             multiplayerMode = isMultiplayerModeActive;
+            StopMenuMusic();
             return Scene::Gameplay;
         }
 
@@ -102,6 +106,7 @@ namespace ReyesCuadra
 
         if (IsButtonClicked(exitButton))
         {
+            StopMenuMusic();
             return Scene::Exit;
         }
 
