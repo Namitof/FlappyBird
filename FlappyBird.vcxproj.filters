@@ -16,6 +16,9 @@
     <Filter Include="background">
       <UniqueIdentifier>{044C06AC-A064-40BA-8221-3A60D36E3342}</UniqueIdentifier>
     </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{3d0d5d29-914f-46c9-ab72-9c4c3c0b6e21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
@@ -48,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="src\background\background.cpp">
       <Filter>background</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resource_manager.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="src\background\background.h">
       <Filter>background</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\resource_manager.h">
+      <Filter>resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
