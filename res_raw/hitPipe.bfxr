@@ -1,0 +1,20 @@
+{
+  "synth_type": "Fractr",
+  "version": "1.0.0",
+  "file_name": "StoneCollapse1",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.2817455100529951,
+    "material": 3,
+    "duration": 3.542272242810252,
+    "fragments": 55,
+    "fragmentSize": 0.5969491679437945,
+    "spread": 0.8802897958613312,
+    "decay": 0.3814446748030721,
+    "gravity": 0.7829058823114674,
+    "bounce": 0.5948644489906816,
+    "stress": 0.8275012364480705,
+    "shards": 0.6512447852581982,
+    "fracture": 0.755626569386718
+  }
+}

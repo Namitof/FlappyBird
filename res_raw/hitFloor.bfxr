@@ -1,0 +1,16 @@
+{
+  "synth_type": "Whooshr",
+  "version": "1.0.0",
+  "file_name": "FastProjectile",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.1604660015092958,
+    "duration": 0.16834079921344242,
+    "size": 0.035524392870408004,
+    "air": 0.7276855417864239,
+    "whistle": 0.33025384929594487,
+    "movement": 0.9303729560613136,
+    "focus": 0.8678843468624351,
+    "flutter": 0.008494615832540582
+  }
+}

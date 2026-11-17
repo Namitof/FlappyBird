@@ -1,0 +1,23 @@
+{
+  "synth_type": "Jinglr",
+  "version": "1.0.0",
+  "file_name": "Denied",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.6430064300643007,
+    "instrumentSeed": 62976,
+    "phrase": "[{\"degree\":5,\"beats\":0.75},{\"degree\":0,\"beats\":1}]",
+    "instrument": 2,
+    "key": 0,
+    "scale": 1,
+    "contour": 1,
+    "rhythm": 1,
+    "noteCount": 2,
+    "octave": 3,
+    "tempo": 205.58018326677205,
+    "swing": 0,
+    "brightness": 0.5357270457275635,
+    "decay": 0.016545736494683615,
+    "echo": 0
+  }
+}
