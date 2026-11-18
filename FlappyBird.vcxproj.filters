@@ -52,7 +52,7 @@
     <ClCompile Include="src\background\background.cpp">
       <Filter>background</Filter>
     </ClCompile>
-    <ClCompile Include="src\resources\resource_manager.cpp">
+    <ClCompile Include="src\resources\audio_manager.cpp">
       <Filter>resources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,7 +90,7 @@
     <ClInclude Include="src\background\background.h">
       <Filter>background</Filter>
     </ClInclude>
-    <ClInclude Include="src\resources\resource_manager.h">
+    <ClInclude Include="src\resources\audio_manager.h">
       <Filter>resources</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
-#include "resource_manager.h"
+#include "audio_manager.h"
 
-#include <raylib.h>
+#include "raylib.h"
 
 namespace ReyesCuadra
 {
@@ -16,7 +16,7 @@ namespace ReyesCuadra
 	static Music gameMusic;
 	static Music menuMusic;
 
-	void LoadResources()
+	void LoadAudio()
 	{
 		hitFloor = LoadSound("res/Sounds/hitFloor.wav");
 		hitPipe = LoadSound("res/Sounds/hitPipe.wav");
@@ -167,7 +167,7 @@ namespace ReyesCuadra
 		SetMasterVolume(0.0f);
 	}
 
-	void UnloadResources()
+	void UnloadAudio()
 	{
 		UnloadSound(hitFloor);
 		UnloadSound(hitPipe);

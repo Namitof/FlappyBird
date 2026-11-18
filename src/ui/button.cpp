@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-#include "resources/resource_manager.h"
+#include "resources/audio_manager.h"
 
 namespace ReyesCuadra
 {

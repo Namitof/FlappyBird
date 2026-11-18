@@ -6,7 +6,7 @@
 #include "entities/player.h"
 #include "entities/obstacle.h"
 #include "ui/text.h"
-#include "resources/resource_manager.h"
+#include "resources/audio_manager.h"
 
 namespace ReyesCuadra
 {

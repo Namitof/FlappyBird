@@ -4,7 +4,7 @@
 
 namespace ReyesCuadra
 {
-	void LoadResources();
+	void LoadAudio();
 
 	Sound GetHitFloorSound();
 	Sound GetHitPipeSound();
@@ -32,5 +32,5 @@ namespace ReyesCuadra
 	void SoundsTurnOn();
 	void SoundsTurnOff();
 
-	void UnloadResources();
+	void UnloadAudio();
 }
