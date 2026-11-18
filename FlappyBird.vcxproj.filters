@@ -58,6 +58,9 @@
     <ClCompile Include="src\resources\resource_manager.cpp">
       <Filter>resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\instructions.cpp">
+      <Filter>scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="src\resources\resource_manager.h">
       <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\instructions.h">
+      <Filter>scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
