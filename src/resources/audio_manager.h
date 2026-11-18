@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AUDIO_MANAGER_H
+#define AUDIO_MANAGER_H
 
 #include "raylib.h"
 
@@ -34,3 +35,5 @@ namespace ReyesCuadra
 
 	void UnloadAudio();
 }
+
+#endif // AUDIO_MANAGER_H

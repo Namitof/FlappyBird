@@ -4,6 +4,9 @@
 
 namespace ReyesCuadra
 {
+	//Constante
+	const float MUSIC_MAX_VOLUME = 0.4f;
+
 	//Sonidos
 	static Sound hitFloor;
 	static Sound hitPipe;
@@ -121,6 +124,7 @@ namespace ReyesCuadra
 	{
 		if (!IsMusicStreamPlaying(menuMusic))
 		{
+			SetMusicVolume(menuMusic, MUSIC_MAX_VOLUME);
 			PlayMusicStream(menuMusic);
 		}
 		else
@@ -133,6 +137,7 @@ namespace ReyesCuadra
 	{
 		if (!IsMusicStreamPlaying(gameMusic))
 		{
+			SetMusicVolume(gameMusic, MUSIC_MAX_VOLUME);
 			PlayMusicStream(gameMusic);
 		}
 		else
