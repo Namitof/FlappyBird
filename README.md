@@ -32,5 +32,5 @@ raylib 6.2 ya viene incluida en la carpeta `lib/raylib`.
 
 ## Autor
 
-Valentin Reyes — [GitHub](https://github.com/SoloDimeDeluxe) · [itch.io](https://solodim3deluxe.itch.io/)
-Nahuel Suarez — [GitHub](https://github.com/Namitof) · [itch.io](https://namitof.itch.io/)
+Valentin Reyes — [GitHub](https://github.com/SoloDimeDeluxe) · [itch.io](https://solodim3deluxe.itch.io/)  
+Nahuel Suarez — [GitHub](https://github.com/Namitof) · [itch.io](https://namitof.itch.io/)  
