@@ -7,6 +7,7 @@
 #include "ui/button.h"
 #include "ui/text.h"
 #include "resources/audio_manager.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -45,6 +46,7 @@ namespace ReyesCuadra
     static const int SECTION_EXTRA_SPACING = 15;  // Espacio extra antes de cada titulo de seccion, para separarlas
     static const int BOTTOM_MARGIN = 30;
     static const float BACK_BUTTON_POSITION_Y = 320.0f; // Debajo de las lineas de los creditos
+    static const float DEFAULT_SPACING = 1.0f;
 
     // Colores
     static const Color CREDITS_BACKGROUND_COLOR = SKYBLUE;
@@ -55,12 +57,16 @@ namespace ReyesCuadra
     // Boton para volver al menu, igual a los del menu principal (solo se usa en este archivo)
     static Button backButton;
 
+    // Fuente
+    Font creditsFont;
+
     // Dibuja todas las lineas de los creditos, una debajo de la otra
     static void DrawCreditLines();
 
     void InitCredits()
     {
-        backButton = CreateCenteredButton(BACK_BUTTON_TEXT, BACK_BUTTON_POSITION_Y);
+        creditsFont = GetFont();
+        backButton = CreateCenteredButton(BACK_BUTTON_TEXT, BACK_BUTTON_POSITION_Y, creditsFont);
     }
 
     Scene UpdateCredits()
@@ -80,7 +86,7 @@ namespace ReyesCuadra
     {
         ClearBackground(CREDITS_BACKGROUND_COLOR);
 
-        DrawCenteredText(CREDITS_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR);
+        DrawCenteredText(CREDITS_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR, creditsFont, DEFAULT_SPACING);
 
         DrawCreditLines();
 
@@ -89,7 +95,7 @@ namespace ReyesCuadra
         // Abajo de todo se recuerda que tambien se puede volver con el teclado
         const int backTextPositionY = GetScreenHeight() - BOTTOM_MARGIN;
 
-        DrawCenteredText(BACK_TO_MENU_TEXT, backTextPositionY, LINE_FONT_SIZE, TEXT_COLOR);
+        DrawCenteredText(BACK_TO_MENU_TEXT, backTextPositionY, LINE_FONT_SIZE, TEXT_COLOR, creditsFont, DEFAULT_SPACING);
     }
 
     static void DrawCreditLines()
@@ -108,7 +114,7 @@ namespace ReyesCuadra
 
             const Color lineColor = line.isSectionTitle ? SECTION_TITLE_COLOR : TEXT_COLOR;
 
-            DrawCenteredText(line.text, positionY, LINE_FONT_SIZE, lineColor);
+            DrawCenteredText(line.text, positionY, LINE_FONT_SIZE, lineColor, creditsFont, DEFAULT_SPACING);
 
             positionY += LINE_SPACING;
         }

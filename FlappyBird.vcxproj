@@ -96,6 +96,7 @@ CopyRes.bat "$(ProjectDir)res" "$(OutDir)res"</Command>
     <ClCompile Include="src\entities\player.cpp" />
     <ClCompile Include="src\entities\obstacle.cpp" />
     <ClCompile Include="src\resources\audio_manager.cpp" />
+    <ClCompile Include="src\resources\resource_manager.cpp" />
     <ClCompile Include="src\scenes\main_menu.cpp" />
     <ClCompile Include="src\scenes\gameplay.cpp" />
     <ClCompile Include="src\scenes\credits.cpp" />
@@ -109,6 +110,7 @@ CopyRes.bat "$(ProjectDir)res" "$(OutDir)res"</Command>
     <ClInclude Include="src\entities\player.h" />
     <ClInclude Include="src\entities\obstacle.h" />
     <ClInclude Include="src\resources\audio_manager.h" />
+    <ClInclude Include="src\resources\resource_manager.h" />
     <ClInclude Include="src\scenes\scene.h" />
     <ClInclude Include="src\scenes\main_menu.h" />
     <ClInclude Include="src\scenes\gameplay.h" />

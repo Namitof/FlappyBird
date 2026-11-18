@@ -7,6 +7,7 @@
 #include "entities/obstacle.h"
 #include "ui/text.h"
 #include "resources/audio_manager.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -43,6 +44,7 @@ namespace ReyesCuadra
 	static const int SMALL_FONT_SIZE = 20;
 	static const int TITLE_FONT_SIZE = 60;
 	static const int GAME_OVER_LINE_SPACING = 50;
+	static const float DEFAULT_SPACING = 1.0f;
 
 	// Colores
 	static const Color GAMEPLAY_BACKGROUND_COLOR = SKYBLUE;
@@ -78,6 +80,9 @@ namespace ReyesCuadra
 	// Estado de la partida actual (solo se usa en este archivo)
 	static GameplayState gameplay;
 
+	// Fuente
+	Font gameFont;
+
 	// Mueve el fondo, al jugador y al obstaculo y chequea las condiciones de derrota
 	static void UpdatePlaying(float deltaTime);
 
@@ -100,6 +105,8 @@ namespace ReyesCuadra
 	{
 		const int screenWidth = GetScreenWidth();
 		const int screenHeight = GetScreenHeight();
+
+		gameFont = GetFont();
 
 		gameplay.background = CreateBackground(screenWidth);
 		gameplay.playerOne = CreatePlayer(screenHeight, JUMP_PLAYER_ONE, COLOR_PLAYER_ONE, PLAYER_ONE_POSITION_X, PLAYER_ONE_ID);
@@ -266,8 +273,10 @@ namespace ReyesCuadra
 
 	static void DrawHud()
 	{
-		DrawText(CONTROLS_TEXT, TEXT_MARGIN, TEXT_MARGIN, SMALL_FONT_SIZE, TEXT_COLOR);
-		DrawText(BACK_TO_MENU_TEXT, TEXT_MARGIN, TEXT_MARGIN * 2 + SMALL_FONT_SIZE, SMALL_FONT_SIZE, TEXT_COLOR);
+		Vector2 pos = { static_cast<float>(TEXT_MARGIN), static_cast<float>(TEXT_MARGIN) };
+		DrawTextEx(gameFont, CONTROLS_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
+		pos = { static_cast<float>(TEXT_MARGIN), static_cast<float>(TEXT_MARGIN * 3) };
+		DrawTextEx(gameFont, BACK_TO_MENU_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
 	}
 
 	static void DrawGameOverMessage(DefeatReason reason)
@@ -276,9 +285,9 @@ namespace ReyesCuadra
 		const int reasonPositionY = titlePositionY + TITLE_FONT_SIZE + TEXT_MARGIN;
 		const int optionsPositionY = reasonPositionY + GAME_OVER_LINE_SPACING;
 
-		DrawCenteredText(GAME_OVER_TITLE_TEXT, titlePositionY, TITLE_FONT_SIZE, GAME_OVER_TITLE_COLOR);
-		DrawCenteredText(GetDefeatReasonText(reason), reasonPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
-		DrawCenteredText(GAME_OVER_OPTIONS_TEXT, optionsPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
+		DrawCenteredText(GAME_OVER_TITLE_TEXT, titlePositionY, TITLE_FONT_SIZE, GAME_OVER_TITLE_COLOR, gameFont, DEFAULT_SPACING);
+		DrawCenteredText(GetDefeatReasonText(reason), reasonPositionY, SMALL_FONT_SIZE, TEXT_COLOR, gameFont, DEFAULT_SPACING);
+		DrawCenteredText(GAME_OVER_OPTIONS_TEXT, optionsPositionY, SMALL_FONT_SIZE, TEXT_COLOR, gameFont, DEFAULT_SPACING);
 	}
 
 	static const char* GetDefeatReasonText(DefeatReason reason)

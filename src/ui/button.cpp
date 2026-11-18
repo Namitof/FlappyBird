@@ -11,13 +11,14 @@ namespace ReyesCuadra
     static const float BUTTON_HEIGHT = 50.0f;
     static const float BUTTON_BORDER_THICKNESS = 3.0f;
     static const int BUTTON_FONT_SIZE = 25;
+    static const float DEFAULT_SPACING = 1.0f;
 
     static const Color BUTTON_COLOR = LIGHTGRAY;
     static const Color BUTTON_HOVER_COLOR = YELLOW;
     static const Color BUTTON_BORDER_COLOR = DARKGRAY;
     static const Color BUTTON_TEXT_COLOR = DARKGRAY;
 
-    Button CreateCenteredButton(const char* text, float positionY)
+    Button CreateCenteredButton(const char* text, float positionY, Font font)
     {
         Button button;
 
@@ -28,6 +29,7 @@ namespace ReyesCuadra
         button.text = text;
         button.isHovered = false;
         button.soundsPlaying = false;
+        button.font = font;
 
         return button;
     }
@@ -58,10 +60,18 @@ namespace ReyesCuadra
         DrawRectangleLinesEx(button.bounds, BUTTON_BORDER_THICKNESS, BUTTON_BORDER_COLOR);
 
         // El texto va centrado dentro del boton
-        const int textWidth = MeasureText(button.text, BUTTON_FONT_SIZE);
+        //const int textWidth = MeasureText(button.text, BUTTON_FONT_SIZE);
+
+        const Vector2 measureText = MeasureTextEx(button.font, button.text, static_cast<float>(BUTTON_FONT_SIZE), DEFAULT_SPACING);
+        const int textWidth = static_cast<int>(measureText.x);
+
         const int textPositionX = static_cast<int>(button.bounds.x + (button.bounds.width - static_cast<float>(textWidth)) / 2.0f);
         const int textPositionY = static_cast<int>(button.bounds.y + (button.bounds.height - static_cast<float>(BUTTON_FONT_SIZE)) / 2.0f);
 
-        DrawText(button.text, textPositionX, textPositionY, BUTTON_FONT_SIZE, BUTTON_TEXT_COLOR);
+        Vector2 pos = { static_cast<float>(textPositionX), static_cast<float>(textPositionY) };
+
+        DrawTextEx(button.font, button.text, pos, static_cast<float>(BUTTON_FONT_SIZE), DEFAULT_SPACING, BUTTON_TEXT_COLOR);
+
+        //DrawText(button.text, textPositionX, textPositionY, BUTTON_FONT_SIZE, BUTTON_TEXT_COLOR);
     }
 }

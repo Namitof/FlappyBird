@@ -7,6 +7,7 @@
 #include "scenes/gameplay.h"
 #include "scenes/credits.h"
 #include "resources/audio_manager.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -58,6 +59,7 @@ namespace ReyesCuadra
         // ESC deja de cerrar el juego (es la tecla de salida por defecto de raylib), ahora se usa para volver al menu
         SetExitKey(KEY_NULL);
 
+        LoadResources();
         LoadAudio();
 
         InitMainMenu();
@@ -133,8 +135,9 @@ namespace ReyesCuadra
 
     static void CloseGame()
     {
-        CloseWindow();
+        UnloadResources();
         UnloadAudio();
         CloseAudioDevice();
+        CloseWindow();
     }
 }

@@ -12,10 +12,11 @@ namespace ReyesCuadra
         const char* text;
         bool isHovered;
         bool soundsPlaying;
+        Font font;
     };
 
     // Crea un boton centrado horizontalmente en la pantalla, con su borde superior en la altura indicada
-    Button CreateCenteredButton(const char* text, float positionY);
+    Button CreateCenteredButton(const char* text, float positionY, Font font);
 
     // Devuelve true si el mouse esta encima del boton
     bool IsButtonHovered(Button& button);

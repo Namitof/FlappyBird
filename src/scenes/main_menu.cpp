@@ -7,6 +7,7 @@
 #include "ui/button.h"
 #include "ui/text.h"
 #include "resources/audio_manager.h"
+#include "resources/resource_manager.h"
 
 namespace ReyesCuadra
 {
@@ -44,6 +45,7 @@ namespace ReyesCuadra
     static const int CONTROLS_TITLE_POSITION_Y = 130;
     static const int CONTROLS_FIRST_LINE_POSITION_Y = 180;
     static const int CONTROLS_LINE_SPACING = 30;
+    static const float DEFAULT_SPACING = 0.0f;
 
     // Colores
     static const Color MENU_BACKGROUND_COLOR = SKYBLUE;
@@ -61,6 +63,9 @@ namespace ReyesCuadra
     // Booleano para controlar modo de juego
     static bool isMultiplayerModeActive;
 
+    // Fuente
+    Font menuFont;
+
     // Dibuja la version del juego en la esquina inferior derecha
     static void DrawGameVersion();
     static void DrawGameInstructions();
@@ -68,10 +73,11 @@ namespace ReyesCuadra
     void InitMainMenu()
     {
         // Los botones van uno debajo del otro, centrados en la pantalla
-        playButton = CreateCenteredButton(PLAY_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y);
-        gameModeButton = CreateCenteredButton(GAME_MODE_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING );
-        creditsButton = CreateCenteredButton(CREDITS_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 2.0f);
-        exitButton = CreateCenteredButton(EXIT_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 3.0f);
+        menuFont = GetFont();
+        playButton = CreateCenteredButton(PLAY_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y, menuFont);
+        gameModeButton = CreateCenteredButton(GAME_MODE_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING, menuFont);
+        creditsButton = CreateCenteredButton(CREDITS_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 2.0f, menuFont);
+        exitButton = CreateCenteredButton(EXIT_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 3.0f, menuFont);
     }
 
     Scene UpdateMainMenu(bool& multiplayerMode)
@@ -118,8 +124,8 @@ namespace ReyesCuadra
     {
         ClearBackground(MENU_BACKGROUND_COLOR);
 
-        DrawCenteredText(GAME_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR);
-        DrawCenteredText(MENU_HINT_TEXT, HINT_POSITION_Y, SMALL_FONT_SIZE, TEXT_COLOR);
+        DrawCenteredText(GAME_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR, menuFont, DEFAULT_SPACING);
+        DrawCenteredText(MENU_HINT_TEXT, HINT_POSITION_Y, SMALL_FONT_SIZE, TEXT_COLOR, menuFont, DEFAULT_SPACING);
 
         DrawButton(playButton);
         DrawButton(gameModeButton);
@@ -137,12 +143,16 @@ namespace ReyesCuadra
         const int versionPositionX = GetScreenWidth() - versionTextWidth - TEXT_MARGIN;
         const int versionPositionY = GetScreenHeight() - SMALL_FONT_SIZE - TEXT_MARGIN;
 
-        DrawText(GAME_VERSION_TEXT, versionPositionX, versionPositionY, SMALL_FONT_SIZE, TEXT_COLOR);
+        Vector2 pos = { static_cast<float>(versionPositionX), static_cast<float>(versionPositionY) };
+
+        DrawTextEx(menuFont, GAME_VERSION_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
     }
 
     static void DrawGameInstructions()
     {
-        DrawText(CONTROLS_TITLE_TEXT, CONTROLS_POSITION_X, CONTROLS_TITLE_POSITION_Y, SMALL_FONT_SIZE, CONTROLS_TITLE_COLOR);
+        Vector2 pos = { static_cast<float>(CONTROLS_POSITION_X), static_cast<float>(CONTROLS_TITLE_POSITION_Y) };
+
+        DrawTextEx(menuFont, CONTROLS_TITLE_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, CONTROLS_TITLE_COLOR);
 
         const int lineCount = static_cast<int>(std::size(CONTROLS_LINES));
 
@@ -150,7 +160,8 @@ namespace ReyesCuadra
         {
             const int linePositionY = CONTROLS_FIRST_LINE_POSITION_Y + lineIndex * CONTROLS_LINE_SPACING;
 
-            DrawText(CONTROLS_LINES[lineIndex], CONTROLS_POSITION_X, linePositionY, SMALL_FONT_SIZE, CONTROLS_TITLE_COLOR);
+            pos = { static_cast<float>(CONTROLS_POSITION_X), static_cast<float>(linePositionY) };
+            DrawTextEx(menuFont, CONTROLS_LINES[lineIndex], pos, SMALL_FONT_SIZE, DEFAULT_SPACING, CONTROLS_TITLE_COLOR);
         }
     }
 }
