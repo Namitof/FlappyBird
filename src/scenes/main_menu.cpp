@@ -64,7 +64,7 @@ namespace ReyesCuadra
     static bool isMultiplayerModeActive;
 
     // Fuente
-    Font menuFont;
+    static Font menuFont;
 
     // Dibuja la version del juego en la esquina inferior derecha
     static void DrawGameVersion();
@@ -102,7 +102,7 @@ namespace ReyesCuadra
         {
             multiplayerMode = isMultiplayerModeActive;
             StopMenuMusic();
-            return Scene::Gameplay;
+            return Scene::Rules; //ACAAAA
         }
 
         if (IsButtonClicked(creditsButton))

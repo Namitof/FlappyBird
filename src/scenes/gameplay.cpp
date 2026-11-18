@@ -81,7 +81,7 @@ namespace ReyesCuadra
 	static GameplayState gameplay;
 
 	// Fuente
-	Font gameFont;
+	static Font gameFont;
 
 	// Mueve el fondo, al jugador y al obstaculo y chequea las condiciones de derrota
 	static void UpdatePlaying(float deltaTime);

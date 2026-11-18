@@ -5,6 +5,7 @@
 #include "scenes/scene.h"
 #include "scenes/main_menu.h"
 #include "scenes/gameplay.h"
+#include "scenes/instructions.h"
 #include "scenes/credits.h"
 #include "resources/audio_manager.h"
 #include "resources/resource_manager.h"
@@ -16,6 +17,9 @@ namespace ReyesCuadra
     static const int SCREEN_HEIGHT = 450;
     static const char* WINDOW_TITLE = "Flappy Bird";
 
+    // Modo de juego
+    bool isMultiplayerModeActive = false;
+
     // Escena con la que arranca el juego
     static const Scene FIRST_SCENE = Scene::MainMenu;
 
@@ -26,7 +30,7 @@ namespace ReyesCuadra
     static Scene UpdateCurrentScene(Scene currentScene);
 
     // Prepara la escena a la que se acaba de entrar
-    static void EnterScene(Scene scene, bool isMultiplayerModeActive);
+    static void EnterScene(Scene scene);
 
     // Dibuja la escena actual
     static void DrawCurrentScene(Scene currentScene);
@@ -63,13 +67,12 @@ namespace ReyesCuadra
         LoadAudio();
 
         InitMainMenu();
+        InitRules(isMultiplayerModeActive);
         InitCredits();
     }
 
     static Scene UpdateCurrentScene(Scene currentScene)
     {
-        bool isMultiplayerModeActive = false;
-
         Scene nextScene = currentScene;
 
         switch (currentScene)
@@ -80,6 +83,10 @@ namespace ReyesCuadra
 
         case Scene::Gameplay:
             nextScene = UpdateGameplay();
+            break;
+
+        case Scene::Rules:
+            nextScene = UpdateRules();
             break;
 
         case Scene::Credits:
@@ -93,13 +100,18 @@ namespace ReyesCuadra
         // Solo se prepara la escena cuando se cambia, no en todos los frames
         if (nextScene != currentScene)
         {
-            EnterScene(nextScene, isMultiplayerModeActive);
+            if (nextScene == Scene::Rules)
+            {
+                InitRules(isMultiplayerModeActive);
+            }
+
+            EnterScene(nextScene);
         }
 
         return nextScene;
     }
 
-    static void EnterScene(Scene scene, bool isMultiplayerModeActive)
+    static void EnterScene(Scene scene)
     {
         // Cada vez que se entra al gameplay desde el menu arranca una partida nueva
         if (scene == Scene::Gameplay)
@@ -120,6 +132,10 @@ namespace ReyesCuadra
 
         case Scene::Gameplay:
             DrawGameplay();
+            break;
+
+        case Scene::Rules:
+            DrawRules();
             break;
 
         case Scene::Credits:

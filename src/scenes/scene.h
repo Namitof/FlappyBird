@@ -9,6 +9,7 @@ namespace ReyesCuadra
     {
         MainMenu,
         Gameplay,
+        Rules,
         Credits,
         Exit
     };

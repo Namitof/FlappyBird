@@ -27,7 +27,7 @@ namespace ReyesCuadra
     static const char* BACK_TO_MENU_TEXT = "Tambien podes volver con ESC";
 
     // Contenido de los creditos, en el orden en que se muestran
-    static const CreditLine CREDIT_LINES[] =
+    static const CreditLine CREDITS_LINES[] =
     {
         { "Desarrollo y programacion", true },
         { "Valentin Reyes Cuadra", false },
@@ -58,7 +58,7 @@ namespace ReyesCuadra
     static Button backButton;
 
     // Fuente
-    Font creditsFont;
+    static Font creditsFont;
 
     // Dibuja todas las lineas de los creditos, una debajo de la otra
     static void DrawCreditLines();
@@ -102,9 +102,9 @@ namespace ReyesCuadra
     {
         int positionY = FIRST_LINE_POSITION_Y;
 
-        for (int lineIndex = 0; lineIndex < static_cast<int>(std::size(CREDIT_LINES)); lineIndex++)
+        for (int lineIndex = 0; lineIndex < static_cast<int>(std::size(CREDITS_LINES)); lineIndex++)
         {
-            const CreditLine& line = CREDIT_LINES[lineIndex];
+            const CreditLine& line = CREDITS_LINES[lineIndex];
 
             // Antes de cada titulo de seccion (menos el primero) se deja un espacio extra
             if (line.isSectionTitle && lineIndex > 0)
