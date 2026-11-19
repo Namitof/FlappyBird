@@ -19,6 +19,8 @@ namespace ReyesCuadra
     static const char* CREDITS_BUTTON_TEXT = "Creditos";
     static const char* EXIT_BUTTON_TEXT = "Salir";
     static const char* CONTROLS_TITLE_TEXT = "Controles:";
+    static const char* SOUNDS_TITLE_TEXT = "Sonidos:";
+    static const char* BUTTON_SOUNDS_STATE_TEXT = "Activados";
 
     // Version del juego, que ahora se muestra en un borde del menu
     static const char* GAME_VERSION_TEXT = "v1.0";
@@ -35,6 +37,9 @@ namespace ReyesCuadra
     static const int CONTROLS_TITLE_POSITION_Y = 130;
     static const int CONTROLS_FIRST_LINE_POSITION_Y = 180;
     static const int CONTROLS_LINE_SPACING = 30;
+    static const float SOUNDS_BUTTON_SPAWN_X = 80.0f;
+    static const int SOUNDS_BUTTON_TEXT_SPAWN_X = 150;
+    static const int SOUNDS_BUTTON_TEXT_OFFSET_Y = 20;
     static const float DEFAULT_SPACING = 0.0f;
 
     // Colores
@@ -49,7 +54,11 @@ namespace ReyesCuadra
     static Button creditsButton;
     static Button instructionsButton;
     static Button exitButton;
+    static Button soundsButton;
 
+    // Booleano para controlar si los sonidos estan activos
+    static bool soundsActives;
+    
     // Booleano para controlar modo de juego
     static bool isMultiplayerModeActive;
 
@@ -64,13 +73,17 @@ namespace ReyesCuadra
 
     void InitMainMenu()
     {
-        // Los botones van uno debajo del otro, centrados en la pantalla
         menuFont = GetFont();
+
+        // Los botones van uno debajo del otro, centrados en la pantalla
         menuBackground = GetMenuBackground();
         playButton = CreateCenteredButton(PLAY_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y, menuFont);
         gameModeButton = CreateCenteredButton(GAME_MODE_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING, menuFont);
         creditsButton = CreateCenteredButton(CREDITS_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 2.0f, menuFont);
         exitButton = CreateCenteredButton(EXIT_BUTTON_TEXT, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING * 3.0f, menuFont);
+
+        soundsButton = CreateButton(BUTTON_SOUNDS_STATE_TEXT, SOUNDS_BUTTON_SPAWN_X, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING, menuFont);
+        soundsActives = true;
     }
 
     Scene UpdateMainMenu(bool& multiplayerMode)
@@ -89,6 +102,22 @@ namespace ReyesCuadra
         else
         {
             gameModeButton.text = "1 Jugador";
+        }
+
+        if (IsButtonClicked(soundsButton))
+        {
+            soundsActives = !soundsActives;
+        }
+
+        if (soundsActives)
+        {
+            soundsButton.text = "Activados";
+            SoundsTurnOn();
+        }
+        else
+        {
+            soundsButton.text = "Desactivados";
+            SoundsTurnOff();
         }
 
         if (IsButtonClicked(playButton))
@@ -126,6 +155,9 @@ namespace ReyesCuadra
         DrawButton(gameModeButton);
         DrawButton(creditsButton);
         DrawButton(exitButton);
+
+        DrawButton(soundsButton);
+        DrawTextEx(menuFont, SOUNDS_TITLE_TEXT, { SOUNDS_BUTTON_TEXT_SPAWN_X, FIRST_BUTTON_POSITION_Y + BUTTON_SPACING - SOUNDS_BUTTON_TEXT_OFFSET_Y }, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
 
         DrawGameVersion();
     }
