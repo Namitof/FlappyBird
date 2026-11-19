@@ -1,5 +1,7 @@
 #include "scenes/gameplay.h"
 
+#include <string>
+
 #include "raylib.h"
 
 #include "background/background.h"
@@ -38,10 +40,13 @@ namespace ReyesCuadra
 	static const char* FLOOR_DEFEAT_TEXT = "Caiste al piso";
 	static const char* PLAYERS_DEFEAT_TEXT = "Todos los jugadores fueron eliminados";
 	static const char* GAME_OVER_OPTIONS_TEXT = "Presiona R para reiniciar o ESC para volver al menu";
+	static const char* PLAYER_ONE_SCORE_TEXT = "Puntuacion: ";
+	static const char* PLAYER_TWO_SCORE_TEXT = "Puntuacion: ";
 
 	// Distribucion de los textos
 	static const int TEXT_MARGIN = 10;
 	static const int SMALL_FONT_SIZE = 20;
+	static const int SCORE_FONT_SIZE = 30;
 	static const int TITLE_FONT_SIZE = 60;
 	static const int GAME_OVER_LINE_SPACING = 50;
 	static const float DEFAULT_SPACING = 1.0f;
@@ -63,6 +68,8 @@ namespace ReyesCuadra
 		bool isMultiplayerModeActive;
 		bool playerOneDefeat;
 		bool playerTwoDefeat;
+		bool isValidPointPlayerOne;
+		bool isValidPointPlayerTwo;
 	};
 
 	// Controles de cada jugador
@@ -75,7 +82,7 @@ namespace ReyesCuadra
 
 	// Punto de aparicion en eje x de cada jugador
 	static const float PLAYER_TWO_POSITION_X = 100.0f;
-	static const float PLAYER_ONE_POSITION_X = 150.0f;
+	static const float PLAYER_ONE_POSITION_X = 160.0f;
 
 	// Estado de la partida actual (solo se usa en este archivo)
 	static GameplayState gameplay;
@@ -101,6 +108,8 @@ namespace ReyesCuadra
 	// Devuelve el texto que explica el motivo de la derrota
 	static const char* GetDefeatReasonText(DefeatReason reason);
 
+	static void CheckScore();
+
 	void InitGameplay(bool isMultiplayerModeActive)
 	{
 		const int screenWidth = GetScreenWidth();
@@ -117,6 +126,8 @@ namespace ReyesCuadra
 		gameplay.isMultiplayerModeActive = isMultiplayerModeActive;
 		gameplay.playerOneDefeat = false;
 		gameplay.playerTwoDefeat = false;
+		gameplay.isValidPointPlayerOne = false;
+		gameplay.isValidPointPlayerTwo = false;
 	}
 
 	Scene UpdateGameplay()
@@ -182,7 +193,7 @@ namespace ReyesCuadra
 		{
 			UpdatePlayer(gameplay.playerTwo, deltaTime);
 		}
-		UpdateObstacle(gameplay.obstacle, GetScreenWidth(), GetScreenHeight(), deltaTime);
+		UpdateObstacle(gameplay.obstacle, GetScreenWidth(), GetScreenHeight(), deltaTime, gameplay.isValidPointPlayerOne, gameplay.isValidPointPlayerTwo);
 
 		// Condiciones de derrota: el jugador toca el obstaculo o cae hasta el piso
 		if (IsCollidingWithObstacle(gameplay.obstacle, gameplay.playerOne.body))
@@ -248,6 +259,8 @@ namespace ReyesCuadra
 			}
 
 		}
+
+		CheckScore();
 	}
 
 	static void EndRun(DefeatReason reason)
@@ -277,6 +290,17 @@ namespace ReyesCuadra
 		DrawTextEx(gameFont, CONTROLS_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
 		pos = { static_cast<float>(TEXT_MARGIN), static_cast<float>(TEXT_MARGIN * 3) };
 		DrawTextEx(gameFont, BACK_TO_MENU_TEXT, pos, SMALL_FONT_SIZE, DEFAULT_SPACING, TEXT_COLOR);
+
+		std::string playerOneScore = "Puntuacion: " + std::to_string(gameplay.playerOne.score);
+		std::string playerTwoScore = "Puntuacion: " + std::to_string(gameplay.playerTwo.score);
+
+		PLAYER_ONE_SCORE_TEXT = playerOneScore.c_str();
+		PLAYER_TWO_SCORE_TEXT = playerTwoScore.c_str();
+
+		pos = { static_cast<float>(TEXT_MARGIN), static_cast<float>(TEXT_MARGIN * 8) };
+		DrawTextEx(gameFont, PLAYER_ONE_SCORE_TEXT, pos, SCORE_FONT_SIZE, DEFAULT_SPACING, YELLOW);
+		pos = { static_cast<float>(TEXT_MARGIN), static_cast<float>(TEXT_MARGIN * 42) };
+		DrawTextEx(gameFont, PLAYER_TWO_SCORE_TEXT, pos, SCORE_FONT_SIZE, DEFAULT_SPACING, PINK);
 	}
 
 	static void DrawGameOverMessage(DefeatReason reason)
@@ -303,6 +327,27 @@ namespace ReyesCuadra
 		else
 		{
 			return PLAYERS_DEFEAT_TEXT;
+		}
+	}
+
+	static void CheckScore()
+	{
+		if (gameplay.playerOne.isActive && !gameplay.isValidPointPlayerOne)
+		{
+			if (gameplay.obstacle.topPart.x + (gameplay.obstacle.topPart.width / 2) <= gameplay.playerOne.body.x + gameplay.playerOne.body.width)
+			{
+				gameplay.playerOne.score++;
+				gameplay.isValidPointPlayerOne = true;
+			}
+		}
+
+		if (gameplay.playerTwo.isActive && gameplay.isMultiplayerModeActive && !gameplay.isValidPointPlayerTwo)
+		{
+			if (gameplay.obstacle.topPart.x + (gameplay.obstacle.topPart.width / 2) <= gameplay.playerTwo.body.x + gameplay.playerTwo.body.width)
+			{
+				gameplay.playerTwo.score++;
+				gameplay.isValidPointPlayerTwo = true;
+			}
 		}
 	}
 }
