@@ -39,12 +39,11 @@ Nahuel Suarez — [GitHub](https://github.com/Namitof) · [itch.io](https://nami
 
 ## Recursos
 
-"Music: Three Red Hearts - Connected"
-"Music: Three Red Hearts - Penguin Town"
-de Tallbeard Studios
-https://tallbeard.itch.io/three-red-hearts-prepare-to-dev
-
-Font:
-"Dead Font Walking"
-de Chequered Ink
-https://www.dafont.com/es/dead-font-walking.font
+"Music: Three Red Hearts - Connected"  
+"Music: Three Red Hearts - Penguin Town"  
+de Tallbeard Studios  
+https://tallbeard.itch.io/three-red-hearts-prepare-to-dev  
+  
+"Font: Dead Font Walking"  
+de Chequered Ink  
+https://www.dafont.com/es/dead-font-walking.font  
