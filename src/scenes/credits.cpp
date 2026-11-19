@@ -24,7 +24,6 @@ namespace ReyesCuadra
     // Textos que ve el usuario
     static const char* CREDITS_TITLE_TEXT = "CREDITOS";
     static const char* BACK_BUTTON_TEXT = "Volver";
-    static const char* BACK_TO_MENU_TEXT = "Tambien podes volver con ESC";
 
     // Contenido de los creditos, en el orden en que se muestran
     static const CreditLine CREDITS_LINES[] =
@@ -32,6 +31,9 @@ namespace ReyesCuadra
         { "Desarrollo y programacion", true },
         { "Valentin Reyes Cuadra", false },
         { "Nahuel Suarez", false },
+        { "Recursos", true },
+        { "Font: Dead Font Walking de Chequered Ink", false },
+        { "Music: Connected, Penguin Town de Tallbeard Studios", false },
         { "Herramientas", true },
         { "raylib 6.2 (https://www.raylib.com)", false },
         { "Visual Studio 2026", false },
@@ -45,14 +47,14 @@ namespace ReyesCuadra
     static const int LINE_SPACING = 27;           // Distancia vertical entre una linea y la siguiente
     static const int SECTION_EXTRA_SPACING = 15;  // Espacio extra antes de cada titulo de seccion, para separarlas
     static const int BOTTOM_MARGIN = 30;
-    static const float BACK_BUTTON_POSITION_Y = 320.0f; // Debajo de las lineas de los creditos
+    static const float BACK_BUTTON_POSITION_Y = 380.0f; // Debajo de las lineas de los creditos
     static const float DEFAULT_SPACING = 1.0f;
 
     // Colores
     static const Color CREDITS_BACKGROUND_COLOR = SKYBLUE;
-    static const Color TITLE_COLOR = DARKGREEN;
+    static const Color TITLE_COLOR = RED;
     static const Color SECTION_TITLE_COLOR = DARKBLUE;
-    static const Color TEXT_COLOR = DARKGRAY;
+    static const Color TEXT_COLOR = BLACK;
 
     // Boton para volver al menu, igual a los del menu principal (solo se usa en este archivo)
     static Button backButton;
@@ -60,12 +62,16 @@ namespace ReyesCuadra
     // Fuente
     static Font creditsFont;
 
+    // Background
+    static Texture2D creditsBackground;
+
     // Dibuja todas las lineas de los creditos, una debajo de la otra
     static void DrawCreditLines();
 
     void InitCredits()
     {
         creditsFont = GetFont();
+        creditsBackground = GetMenuBackground();
         backButton = CreateCenteredButton(BACK_BUTTON_TEXT, BACK_BUTTON_POSITION_Y, creditsFont);
     }
 
@@ -85,17 +91,14 @@ namespace ReyesCuadra
     void DrawCredits()
     {
         ClearBackground(CREDITS_BACKGROUND_COLOR);
+    
+        DrawTexture(creditsBackground, 0, 0, WHITE);
 
         DrawCenteredText(CREDITS_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR, creditsFont, DEFAULT_SPACING);
 
         DrawCreditLines();
 
         DrawButton(backButton);
-
-        // Abajo de todo se recuerda que tambien se puede volver con el teclado
-        const int backTextPositionY = GetScreenHeight() - BOTTOM_MARGIN;
-
-        DrawCenteredText(BACK_TO_MENU_TEXT, backTextPositionY, LINE_FONT_SIZE, TEXT_COLOR, creditsFont, DEFAULT_SPACING);
     }
 
     static void DrawCreditLines()
