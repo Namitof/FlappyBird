@@ -37,18 +37,19 @@ namespace ReyesCuadra
     static const float DEFAULT_SPACING = 1.0f;
 
     // Colores
-    static const Color CREDITS_BACKGROUND_COLOR = SKYBLUE;
-    static const Color TITLE_COLOR = DARKGREEN;
+    static const Color RULES_BACKGROUND_COLOR = SKYBLUE;
+    static const Color TITLE_COLOR = RED;
     static const Color SECTION_TITLE_COLOR = DARKBLUE;
 
-    static const Color TEXT_COLOR = DARKGRAY;
+    static const Color TEXT_COLOR = BLACK;
 
     static const Color PLAYER_ONE_COLOR = YELLOW;
     static const Color PLAYER_TWO_COLOR = PINK;
 
-    // Contenido de los creditos, en el orden en que se muestran
+    // Contenido de las reglas, en el orden en que se muestran
     static InstructionLine RULES_LINES[] =
     {
+        { " Pasa por el hueco del obstaculo verde", false, TEXT_COLOR },
         { " = JUGADOR 1 (Amarillo) = ", true, PLAYER_ONE_COLOR },
         { " - Espacio para saltar - ", false, TEXT_COLOR },
         { " = JUGADOR 2 (Rosa) = ", true, PLAYER_TWO_COLOR },
@@ -61,15 +62,19 @@ namespace ReyesCuadra
     // Fuente
     static Font rulesFont;
 
+    // Background
+    static Texture2D creditsBackground;
+
     // Dibuja todas las lineas de los creditos, una debajo de la otra
     static void DrawRulesLines();
 
     void InitRules(bool isMultiplayerModeActive)
     {
         rulesFont = GetFont();
+        creditsBackground = GetMenuBackground();
         for (int lineIndex = 0; lineIndex < static_cast<int>(std::size(RULES_LINES)); lineIndex++)
         {
-            if (!isMultiplayerModeActive && ((lineIndex == 2) || (lineIndex == 3)))
+            if (!isMultiplayerModeActive && ((lineIndex == 3) || (lineIndex == 4)))
             {
                 RULES_LINES[lineIndex].isActive = false;
             }
@@ -96,7 +101,9 @@ namespace ReyesCuadra
 
     void DrawRules()
     {
-        ClearBackground(CREDITS_BACKGROUND_COLOR);
+        ClearBackground(RULES_BACKGROUND_COLOR);
+
+        DrawTexture(creditsBackground, 0, 0, WHITE);
 
         DrawCenteredText(RULES_TITLE_TEXT, TITLE_POSITION_Y, TITLE_FONT_SIZE, TITLE_COLOR, rulesFont, DEFAULT_SPACING);
 
