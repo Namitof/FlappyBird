@@ -19,7 +19,7 @@ namespace ReyesCuadra
     Obstacle CreateObstacle(int screenWidth, int screenHeight);
 
     // Mueve el obstaculo hacia la izquierda; cuando sale de la pantalla reaparece por la derecha con el hueco a otra altura
-    void UpdateObstacle(Obstacle& obstacle, int screenWidth, int screenHeight, float deltaTime);
+    void UpdateObstacle(Obstacle& obstacle, int screenWidth, int screenHeight, float deltaTime, bool& isValidPointPlayerOne, bool& isValidPointPlayerTwo);
 
     // Devuelve true si el rectangulo recibido toca alguna de las dos partes del obstaculo
     bool IsCollidingWithObstacle(const Obstacle& obstacle, Rectangle otherBody);

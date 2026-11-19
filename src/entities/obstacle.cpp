@@ -9,7 +9,7 @@ namespace ReyesCuadra
     static const float GAP_HEIGHT = 150.0f;      // Alto del hueco por donde tiene que pasar el jugador
     static const float MIN_PART_HEIGHT = 40.0f;  // Alto minimo de cada parte, para que el hueco nunca quede pegado a un borde
     static const float OBSTACLE_SPEED = 300.0f;
-    static const Color OBSTACLE_COLOR = GREEN;
+    static const Color OBSTACLE_COLOR = {111, 171, 119, 255};
 
     // Ubica el obstaculo justo afuera del borde derecho de la pantalla, con el hueco a una altura al azar
     static void ResetObstaclePosition(Obstacle& obstacle, int screenWidth, int screenHeight);
@@ -31,7 +31,7 @@ namespace ReyesCuadra
         return obstacle;
     }
 
-    void UpdateObstacle(Obstacle& obstacle, int screenWidth, int screenHeight, float deltaTime)
+    void UpdateObstacle(Obstacle& obstacle, int screenWidth, int screenHeight, float deltaTime, bool& isValidPointPlayerOne, bool& isValidPointPlayerTwo)
     {
         // Las dos partes se mueven juntas, como un solo obstaculo
         const float movement = obstacle.speed * deltaTime;
@@ -41,6 +41,8 @@ namespace ReyesCuadra
 
         if (IsObstacleOutOfScreen(obstacle))
         {
+            isValidPointPlayerOne = false;
+            isValidPointPlayerTwo = false;
             ResetObstaclePosition(obstacle, screenWidth, screenHeight);
         }
     }
