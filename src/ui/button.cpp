@@ -34,6 +34,22 @@ namespace ReyesCuadra
         return button;
     }
 
+    Button CreateButton(const char* text, float positionX, float positionY, Font font)
+    {
+        Button button;
+
+        button.bounds.width = BUTTON_WIDTH;
+        button.bounds.height = BUTTON_HEIGHT;
+        button.bounds.x = positionX;
+        button.bounds.y = positionY;
+        button.text = text;
+        button.isHovered = false;
+        button.soundsPlaying = false;
+        button.font = font;
+
+        return button;
+    }
+
     bool IsButtonHovered(Button& button)
     {
         button.isHovered = CheckCollisionPointRec(GetMousePosition(), button.bounds);

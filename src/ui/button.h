@@ -18,6 +18,9 @@ namespace ReyesCuadra
     // Crea un boton centrado horizontalmente en la pantalla, con su borde superior en la altura indicada
     Button CreateCenteredButton(const char* text, float positionY, Font font);
 
+    // Crea un boton en la pantalla (X, Y)
+    Button CreateButton(const char* text, float positionX, float positionY, Font font);
+
     // Devuelve true si el mouse esta encima del boton
     bool IsButtonHovered(Button& button);
 
