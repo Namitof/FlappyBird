@@ -8,6 +8,7 @@ namespace ReyesCuadra
 	void LoadResources();
 
 	Font GetFont();
+	Texture2D GetMenuBackground();
 
 	void UnloadResources();
 }

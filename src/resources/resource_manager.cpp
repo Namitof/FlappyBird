@@ -8,14 +8,12 @@ namespace ReyesCuadra
 	static Font font;
 
 	// Texturas
-	static Texture2D logo;
-	static Texture2D bird;
-	static Texture2D obstacleTop;
-	static Texture2D obstacleBottom;
+	static Texture2D menuBackground;
 
 	void LoadResources()
 	{
 		font = LoadFont("res/Font/DeadFontWalking.otf");
+		menuBackground = LoadTexture("res/Background/Background.png");
 	}
 
 	Font GetFont()
@@ -23,8 +21,14 @@ namespace ReyesCuadra
 		return font;
 	}
 
+	Texture2D GetMenuBackground()
+	{
+		return menuBackground;
+	}
+
 	void UnloadResources()
 	{
 		UnloadFont(font);
+		UnloadTexture(menuBackground);
 	}
 }
