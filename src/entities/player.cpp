@@ -35,6 +35,7 @@ namespace ReyesCuadra
         player.keyJump = keyJump;
         player.isActive = true;
         player.id = id;
+        player.score = 0;
 
         return player;
     }
@@ -52,14 +53,24 @@ namespace ReyesCuadra
 
     bool HasPlayerReachedFloor(const Player& player, int screenHeight)
     {
-        const float playerBottom = player.body.y /*+ player.body.height*/;
+        const float playerBottom = player.body.y;
 
         return playerBottom >= static_cast<float>(screenHeight);
     }
 
     void DrawPlayer(const Player& player)
     {
-        DrawRectangleRec(player.body, player.color);
+        Vector2 origin = { 0, 0 };
+        Rectangle skin = player.body;
+        skin.x += player.body.width / 2;
+        skin.y -= player.body.height / 2;
+        skin.y += 12;
+        DrawRectanglePro(skin, origin, 45, player.color);
+
+#ifdef _DEBUG
+        DrawRectangleRec(player.body, WHITE);
+#endif // _DEBUG
+
     }
 
     static void HandleJumpInput(Player& player)

@@ -17,6 +17,7 @@ namespace ReyesCuadra
         KeyboardKey keyJump;
         bool isActive;
         int id;
+        int score;
     };
 
     // Crea al jugador en el lado izquierdo de la pantalla, centrado verticalmente y quieto
