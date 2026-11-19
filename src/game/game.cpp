@@ -15,7 +15,7 @@ namespace ReyesCuadra
     // Configuracion de la ventana
     static const int SCREEN_WIDTH = 800;
     static const int SCREEN_HEIGHT = 450;
-    static const char* WINDOW_TITLE = "Flappy Bird";
+    static const char* WINDOW_TITLE = "FLAPPY GEOMETRY";
 
     // Modo de juego
     bool isMultiplayerModeActive = false;
