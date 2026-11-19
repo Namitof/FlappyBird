@@ -1,16 +1,18 @@
-# Flappy Bird
+![Logo Flappy Geometry](res/Logo/Logo.png)
 
 Juego tipo **Flappy Bird** hecho en C++ con [raylib](https://www.raylib.com/) para la materia
 Práctica Profesional I: Desarrollo de Videojuegos I (Image Campus, 2026).
 
 El proyecto se desarrolla de forma iterativa: cada versión agrega funcionalidades nuevas.
 
-## Versión actual: 0.4
+## Versión actual: 1.0
 
-- Se agregó un modo de juego para 2 jugadores.
-- Se actualizaron los controles mostrados en el menú principal.
-- Se actualizaron los créditos.
-- Se modificó la colisión con el piso: ahora el jugador pierde al salir completamente de la pantalla en lugar de perder al tocar el piso.
+- Se agregó un contador de puntuación.
+- Se incorporaron 5 efectos de sonido para distintas acciones del juego: colisionar con obstáculos, caer, activar un botón, perder y saltar.
+- Se agregaron 2 canciones de fondo: una para el menú principal y otra para el gameplay.
+- Se modificó el fondo del menú principal.
+- Se agregó una sección de reglas antes de comenzar a jugar.
+- Se incorporó un botón para silenciar la música.
 
 ## Controles
 
@@ -34,3 +36,15 @@ raylib 6.2 ya viene incluida en la carpeta `lib/raylib`.
 
 Valentin Reyes — [GitHub](https://github.com/SoloDimeDeluxe) · [itch.io](https://solodim3deluxe.itch.io/)  
 Nahuel Suarez — [GitHub](https://github.com/Namitof) · [itch.io](https://namitof.itch.io/)  
+
+## Recursos
+
+"Music: Three Red Hearts - Connected"
+"Music: Three Red Hearts - Penguin Town"
+de Tallbeard Studios
+https://tallbeard.itch.io/three-red-hearts-prepare-to-dev
+
+Font:
+"Dead Font Walking"
+de Chequered Ink
+https://www.dafont.com/es/dead-font-walking.font
